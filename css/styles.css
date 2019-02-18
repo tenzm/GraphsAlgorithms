@@ -4,7 +4,7 @@
 }
 @font-face {
     font-family: HelveticaNeueLight; /* Гарнитура шрифта */
-    src: url("fonts/helveticaneueultralight.ttf"); /* Путь к файлу со шрифтом */
+    src: url("fonts/helveticaneuelight.ttf"); /* Путь к файлу со шрифтом */
 }
 ::placeholder{
 color: #FFF;
@@ -13,21 +13,13 @@ header{
   background-color: #007bff;
   font-family: HelveticaNeue;
   font-size: 20px;
+  height: 52px;
   color: white;
   padding: 15px 20px;
 }
-.search-field{
-  font-size: 20px;
-  background-color: transparent;
-  border: 3px solid white;
-  border-radius: 20px;
-  width: 200px;
-  padding: 5px 10px;
+
+.nav-link{
   color: white;
-  margin: 0;
-}
-form{
-  float:right;
-  width: 300px;
-  margin-top: -8px;
+  font-family: HelveticaNeueLight;
+  font-size: 22px;
 }
