@@ -23,3 +23,24 @@ header{
   font-family: HelveticaNeueLight;
   font-size: 22px;
 }
+
+.nav-link:hover{
+  background-color: white;
+  border-radius: 25px;
+  color: #007bff;
+}
+
+.fa-question-circle{
+  margin-top:-5px;
+  font-size: 30px;
+}
+
+.fa-question-circle:hover{
+    background-color: white;
+    border-radius: 25px;
+    color: #007bff;
+}
+
+.github i{
+  color: white;
+}
