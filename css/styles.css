@@ -1,0 +1,46 @@
+@font-face {
+    font-family: HelveticaNeue; /* Гарнитура шрифта */
+    src: url("fonts/helveticaneue.ttf"); /* Путь к файлу со шрифтом */
+}
+@font-face {
+    font-family: HelveticaNeueLight; /* Гарнитура шрифта */
+    src: url("fonts/helveticaneuelight.ttf"); /* Путь к файлу со шрифтом */
+}
+::placeholder{
+color: #FFF;
+}
+header{
+  background-color: #007bff;
+  font-family: HelveticaNeue;
+  font-size: 20px;
+  height: 52px;
+  color: white;
+  padding: 15px 20px;
+}
+
+.nav-link{
+  color: white;
+  font-family: HelveticaNeueLight;
+  font-size: 22px;
+}
+
+.nav-link:hover{
+  background-color: white;
+  border-radius: 25px;
+  color: #007bff;
+}
+
+.fa-question-circle{
+  margin-top:-5px;
+  font-size: 30px;
+}
+
+.fa-question-circle:hover{
+    background-color: white;
+    border-radius: 25px;
+    color: #007bff;
+}
+
+.github i{
+  color: white;
+}
