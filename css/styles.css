@@ -13,9 +13,8 @@ header{
   background-color: #007bff;
   font-family: HelveticaNeue;
   font-size: 20px;
-  height: 52px;
   color: white;
-  padding: 15px 20px;
+  padding: 15px 20px 1px 20px;
   position: relatives;
   width: 100%;
 }
@@ -82,10 +81,32 @@ header{
   border-radius: 10px;
   padding: 15px 30px;
   color: white;
+  position: fixed;
+  bottom: 40px;
+  left: 50%;
+  width: 250px;
+  margin-left: -125px;
 }
 
 .learn-btn:hover{
   color: white;
   background-color: #5f9e40;
   text-decoration: none;
+}
+
+@media screen and (max-width:690px) {
+  .nav-link{
+    color: white;
+    font-family: HelveticaNeueLight;
+    font-size: 22px;
+  }
+  .github{
+    position: absolute;
+    top: 15px;
+    right: 20px;
+  }
+
+  nav{
+    padding: 20px 0 10px 0;
+  }
 }
