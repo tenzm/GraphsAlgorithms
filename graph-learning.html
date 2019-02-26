@@ -7,24 +7,9 @@
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
     <title>Graphs</title>
   </head>
-  <body>
-    <header class="clearfix">
-        <i class="fas fa-code-branch float-left"><span style = "margin-left:5px;">Graphs</span></i>
-        <nav class="nav float-left" style="margin-top:-14px; margin-left: 50px;">
-          <a class="nav-link" href="#">Теория графов</a>
-          <a class="nav-link" href="start-learning-machine.html">Машинное обучение</a>
-        </nav>
-        <a class="float-right github" href = "https://github.com/tenzm" style = "margin-top: -5px;"><i class="fab fa-github" style = "font-size:32px;"></i></a>
-    </header>
-    <section class = "graph-img">
-      <div class = "container preview">
-        <h1 class="title-text text-center ">
-          Основы теории графов
-        </h1>
-      </div>
-    </section>
-    <section class = "clearfix" style="padding: 4vw 0;">
-      <div class = "container" style="padding-bottom:30px; width: 900px;">
+  <body id = "body" style = "overflow:hidden;">
+    <section class = "clearfix center-container">
+        <div class = "container" style="width: 900px;">
           <div class = "what-graph float-left">
         <h1 class="text-center float-left" style = "padding-bottom: 30px;">
           Что же такое граф?
@@ -41,8 +26,8 @@
           </div>
       </div>
     </section>
-      <section class = "clearfix" style="padding: 4vw 0; background-color: #eee;">
-      <div class = "container" style="padding-bottom:30px; width: 900px;">
+    <section class = "clearfix center-container">
+      <div class = "container" style="width: 900px;">
           <div class = "what-graph float-left" style="width: 400px; padding-top: 100px;">
         <h1 class="float-left" style = "padding-bottom: 30px; ">
           Где встречаются графы?
@@ -59,8 +44,55 @@
           </div>
       </div>
     </section>
-    <script src="js/jquery.js"></script>
-    <script src="js/bootstrap.min.js"></script>
-
+    <section class = "clearfix center-container">
+      <div class = "container" style="width: 900px;">
+          <div class = "what-graph float-left" style="width: 600px;">
+        <h1 class="float-left" style = "padding-bottom: 30px; display: contents;">
+          Какие бывают графы?
+        </h1>
+        <div>
+            <p style = "font-size: 22px; padding: 100px 0 0 0; width: 100%;">
+                Графы бывают ориентированные
+            </p>
+          <img class = "float-right" src="src/graf2.png" width="150px" style="margin-top:-90px;">
+        </div>
+        <div style="">
+            <p style = "font-size: 22px; padding: 100px 0 0 0; width: 100%;">
+                Графы бывают неориентированные
+              </p>
+          <img class = "float-right" src="src/graf3.png" width="150px" style="margin-top:-90px;">
+        </div>
+        <div style="">
+            <p style = "font-size: 22px; padding: 100px 0 0 0; width: 100%;">
+                Графы бывают взвешенные
+              </p>
+          <img class = "float-right" src="src/graf4.png" width="150px" style="margin-top:-90px;">
+        </div>
+        <div style="">
+            <p style = "font-size: 22px; padding: 100px 0 0 0; width: 100%;">
+                Графы бывают невзвешенные
+              </p>
+          <img class = "float-right" src="src/graf3.png" width="150px" style="margin-top:-90px;">
+        </div>
+              </div>
+          
+      </div>
+    </section>
+    <i class="fas fa-chevron-circle-right" id = "next"></i>
+    <i class="fas fa-chevron-circle-right" id = "previous"></i>
+    <script>
+      let page = 0;
+      let next = document.getElementById("next");
+      let prev = document.getElementById("previous");
+      let body = document.getElementById("body");
+      next.onclick = function(){
+        page += 1;
+        body.style.marginTop = "-"+(page*100).toString()+"vh"
+      }
+      prev.onclick = function(){
+        page -= 1;
+        body.style.marginTop = "-"+(page*100).toString()+"vh"
+      }
+    </script>
   </body>
 </html>
