@@ -13,9 +13,28 @@ header{
   background-color: #007bff;
   font-family: HelveticaNeue;
   font-size: 20px;
-  height: 52px;
   color: white;
-  padding: 15px 20px;
+  padding: 15px 20px 1px 20px;
+  position: relatives;
+  width: 100%;
+}
+
+body, html {
+    height: 100%;
+    transition: 1s;
+}
+
+
+.center-container{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+   background: #F2C14E; /* Для браузеров, которые не поддерживают градиенты */
+ background: -webkit-linear-gradient(left, #F2C14E, #F78154); /* Для Safari 5.1 - 6.0 */
+ background: -o-linear-gradient(left, #F2C14E, #F78154); /* Для Opera 11.1 - 12.0 */
+ background: -moz-linear-gradient(left, #F2C14E, #F78154); /* Для Firefox 3.6 - 15 */
+ background: linear-gradient(left, #F2C14E, #F78154); /* Стандартный синтаксис */
 }
 
 .nav-link{
@@ -26,8 +45,9 @@ header{
 
 .nav-link:hover{
   background-color: white;
-  border-radius: 25px;
+  border-radius: 20px;
   color: #007bff;
+  transition: 0.5s;
 }
 
 .fa-question-circle{
@@ -43,4 +63,85 @@ header{
 
 .github i{
   color: white;
+}
+
+.graph-img{
+  background-image: url("../src/graphs.jpg");
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+.machine-img{
+  background-image: url("../src/machine.jpg");
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+.title-text{
+  color: white;
+  padding: 7vw 0;
+  font-family: HelveticaNeueLight;
+  font-size: 50px;
+}
+
+.paragraph-text{
+    color: rgb(23, 23, 23);
+    padding: 50px 50px;
+    font-family: HelveticaNeue;
+    font-size: 24px;
+    text-align: left;
+}
+
+.learn-btn{
+  background-color: #72c44b;
+  font-family: HelveticaNeue;
+  font-size: 22px;
+  border-radius: 10px;
+  padding: 15px 30px;
+  color: white;
+  position: fixed;
+  bottom: 40px;
+  left: 50%;
+  width: 250px;
+  margin-left: -125px;
+}
+
+.learn-btn:hover{
+  color: white;
+  background-color: #5f9e40;
+  text-decoration: none;
+}
+
+
+#next {
+    font-size: 64px;
+    position: fixed;
+    right: 20px;
+    bottom: 20px;
+    transform: rotate(90deg);
+}
+
+#previous {
+  font-size: 64px;
+  position: fixed;
+  left: 20px;
+  transform: rotate(-90deg);
+  bottom: 20px;
+}
+
+@media screen and (max-width:690px) {
+  .nav-link{
+    color: white;
+    font-family: HelveticaNeueLight;
+    font-size: 22px;
+  }
+  .github{
+    position: absolute;
+    top: 15px;
+    right: 20px;
+  }
+
+  nav{
+    padding: 20px 0 10px 0;
+  }
 }

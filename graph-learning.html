@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="ru" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="css/styles.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+    <title>Graphs</title>
+  </head>
+  <body id = "body" style = "overflow:hidden;">
+    <section class = "clearfix center-container">
+        <div class = "container" style="width: 900px;">
+          <div class = "what-graph float-left">
+        <h1 class="text-center float-left" style = "padding-bottom: 30px;">
+          Что же такое граф?
+        </h1>
+        <p style = "font-size: 22px; padding: 50px 0 0 0;">
+            Граф - множество вершин и ребер.
+          </p>
+          <p style = "font-size: 22px; padding: 0;">
+            Ребро - пара вершин.
+          </p>
+              </div>
+          <div>
+            <img class = "float-right" src="src/graf.png">
+          </div>
+      </div>
+    </section>
+    <section class = "clearfix center-container">
+      <div class = "container" style="width: 900px;">
+          <div class = "what-graph float-left" style="width: 400px; padding-top: 100px;">
+        <h1 class="float-left" style = "padding-bottom: 30px; ">
+          Где встречаются графы?
+        </h1>
+        <p style = "font-size: 22px; padding: 50px 0 0 0;">
+            Графы встречаются в нашей жизни часто.
+          </p>
+          <p style = "font-size: 22px; padding: 0;">
+           Хорошим примером графа является граф городов и дорог между ними.
+          </p>
+              </div>
+          <div>
+            <img class = "float-right" src="src/graf-road.png">
+          </div>
+      </div>
+    </section>
+    <section class = "clearfix center-container">
+      <div class = "container" style="width: 900px;">
+          <div class = "what-graph float-left" style="width: 600px;">
+        <h1 class="float-left" style = "padding-bottom: 30px; display: contents;">
+          Какие бывают графы?
+        </h1>
+        <div>
+            <p style = "font-size: 22px; padding: 100px 0 0 0; width: 100%;">
+                Графы бывают ориентированные
+            </p>
+          <img class = "float-right" src="src/graf2.png" width="150px" style="margin-top:-90px;">
+        </div>
+        <div style="">
+            <p style = "font-size: 22px; padding: 100px 0 0 0; width: 100%;">
+                Графы бывают неориентированные
+              </p>
+          <img class = "float-right" src="src/graf3.png" width="150px" style="margin-top:-90px;">
+        </div>
+        <div style="">
+            <p style = "font-size: 22px; padding: 100px 0 0 0; width: 100%;">
+                Графы бывают взвешенные
+              </p>
+          <img class = "float-right" src="src/graf4.png" width="150px" style="margin-top:-90px;">
+        </div>
+        <div style="">
+            <p style = "font-size: 22px; padding: 100px 0 0 0; width: 100%;">
+                Графы бывают невзвешенные
+              </p>
+          <img class = "float-right" src="src/graf3.png" width="150px" style="margin-top:-90px;">
+        </div>
+              </div>
+          
+      </div>
+    </section>
+    <section class = "clearfix center-container">
+        <div class = "container" style="width: 900px;">
+            <div class = "what-graph float-left" style="width: 400px; padding-top: 100px;">
+          <h1 class="float-left" style = "padding-bottom: 30px; ">
+            Как хранить граф?
+          </h1>
+          <ul style="font-size:28px;">
+            <li>
+                Матрица смежности
+            </li>
+            <li>
+                Список ребер
+            </li>
+            <li>
+                Списки смежности 
+            </li>
+          </ul>
+                </div>
+                <div>
+                  <img class = "float-right" src="src/graf5.png" style="margin-top: 150px;">
+                </div>
+        </div>
+      </section>
+    <i class="fas fa-chevron-circle-right" id = "next"></i>
+    <i class="fas fa-chevron-circle-right" id = "previous"></i>
+    <script>
+      let page = 0;
+      let next = document.getElementById("next");
+      let prev = document.getElementById("previous");
+      let body = document.getElementById("body");
+      next.onclick = function(){
+        page += 1;
+        body.style.marginTop = "-"+(page*100).toString()+"vh"
+      }
+      prev.onclick = function(){
+        page -= 1;
+        body.style.marginTop = "-"+(page*100).toString()+"vh"
+      }
+    </script>
+  </body>
+</html>
