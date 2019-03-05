@@ -6,69 +6,14 @@
     <link rel="stylesheet" type="text/css" href="css/styles.css">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
     <title>Graphs</title>
+    <link rel="stylesheet"
+      href="css/xcode.css">
+<script src="js/highlight.pack.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
   </head>
   <body id = "body" style = "overflow:hidden;">
-    <section class = "clearfix center-container">
-      <div class = "container" style="width: 900px;">
-          <div class = "what-graph float-left" style="width: 400px; padding-top: 100px;">
-        <h1 class="float-left" style = "padding-bottom: 30px; ">
-              Пример графа
-        </h1>
-
-        <button type="button" class="btn btn-primary" id = "add_edge" style="margin-top:350px; font-size: 24px;">Добавить вершину</button>
-
-          <div id = "edge_block">
-
-            <input type="text" class="form-control edge" placeholder="">
-            <input type="text" class="form-control edge" placeholder="">
-        
-          </div>
-
-              </div>
-              <div>
-                <img class = "float-right" src="src/graf5.png" style="margin-top: 150px;">
-              </div>
-      </div>
-    </section>
-
-    <script>
-      let rectIsMove = false;
-      let edges = document.getElementsByClassName("edge");
-      let template = edges[0];
-      let edgesXY = [[100, 100, 0, 0], [100, 100, 0, 0]];
-      let selectedEdge = -1;
-      add_edge.onclick = function(){
-        edgesXY.push([100, 100, 0, 0]);
-        
-        document.getElementById("edge_block").appendChild(template);
-      }
-
-      setInterval(function () {
-        
-      for(let i = 0; i < document.getElementsByClassName("edge").length; i++){
-      edges[i].addEventListener('mousedown', function(e){
-        console.log(i);
-        rectIsMove = true;
-        edgesXY[i][2] = e.clientX - edgesXY[i][0];
-        edgesXY[i][3] = e.clientY - edgesXY[i][1];
-        selectedEdge = i;
-      });
-      }
-      }, 100)
-      document.addEventListener('mouseup', function(e){
-        rectIsMove = false;
-      })
-      document.addEventListener('mousemove', function(e){
-        console.log("w");
-          if(rectIsMove){
-            edgesXY[selectedEdge][0] = e.clientX - edgesXY[selectedEdge][2];
-            edgesXY[selectedEdge][1] = e.clientY - edgesXY[selectedEdge][3];
-            edges[selectedEdge].style.left = (e.clientX-edgesXY[selectedEdge][2]).toString() + "px";
-            edges[selectedEdge].style.top = (e.clientY-edgesXY[selectedEdge][3]).toString() + "px";
-          }
-      })
-    </script>
-
+    
+    
     <section class = "clearfix center-container">
         <div class = "container" style="width: 900px;">
           <div class = "what-graph float-left">
@@ -162,7 +107,125 @@
                 </div>
         </div>
       </section>
-      
+      <section class = "clearfix center-container">
+        <div class = "container" style="width: 900px;">
+          <div class = "what-graph float-left">
+        <h1 class="text-center float-left" style = "padding-bottom: 30px;">
+          Алгоритм Дейкстры
+        </h1>
+        <br>
+        <p style = "font-size: 22px; padding: 50px 0 0 0; margin-top:20px;">
+          Это алгоритм на графах, изобретённый нидерландским учёным Эдсгером Дейкстрой в 1959 году. Находит кратчайшие пути от одной из вершин графа до всех остальных. Алгоритм работает только для графов без рёбер отрицательного веса.
+          </p>
+              </div>
+      </div>
+    </section>
+    <section class = "clearfix center-container">
+        <div class = "container" style="width: 900px;">
+          <div class = "what-graph float-left">
+        <h1 class="text-center float-left" style = "padding-bottom: 30px;">
+          Как мы будем хранить граф?
+        </h1>
+        <br>
+        <p style = "font-size: 22px; padding: 50px 0 0 0; margin-top:20px;">
+          Поскольку  каждое  ребро  содержит  не  только информацию  о  том,  куда  ребро  ведёт,  но  ещё  и  его длину,  мы  воспользуемся  структурой  для  хранения ребра.        </p>
+          <pre><code class="C++" style="background-color: transparent; font-size: 18px;">struct Edge {
+            int to;   // Куда ведёт ребро
+            int len;  // Длина ребра
+          };</code></pre>
+              </div>
+      </div>
+    </section>
+    <section class = "clearfix center-container">
+        <div class = "container" style="width: 900px;">
+          <div class = "what-graph float-left">
+        <br>
+        <p style = "font-size: 22px; padding: 50px 0 0 0; margin-top:20px;">
+            Тогда  наш  массив  G,  в  котором  хранится  будет объявляться следующим образом:        </p>
+          <pre><code class="C++" style="background-color: transparent; font-size: 18px;">vector&#8249;Edge&#8250; G[MAXV];
+          </code></pre>
+          <p style = "font-size: 22px; padding: 50px 0 0 0; margin-top:20px;">
+              А  если  нам  потребуется  добавить  новое  ребро  из вершины a в вершину b длины x, то это можно сделать одной командой:        </p>
+            <pre><code class="C++" style="background-color: transparent; font-size: 18px;">G[a].push_back({b, x});
+            </code></pre>
+              </div>
+      </div>
+    </section>
+    <section class = "clearfix center-container">
+        <div class = "container" style="width: 900px;">
+          <div class = "what-graph float-left">
+        <br>
+        <p style = "font-size: 22px; padding: 50px 0 0 0; margin-top:20px;">
+            Создадим  массив  D,  который  в  ячейке  D[i]  будет хранить   оптимальное   расстояние   от   начальной вершины v до вершины i.        </p>
+            <p style = "font-size: 22px; padding: 50px 0 0 0; margin-top:20px;">
+                Изначально    это    расстояние    будет    равно бесконечности,  а  затем  мы  будем  его  постепенно уточнять.        </p>
+            <pre><code class="C++" style="background-color: transparent; font-size: 18px;">
+        int D[n];
+        void init(int v) {
+          for (int i = 0; i < n; ++i)
+            D[i] = inf;
+          D[v] = 0; // расстояние от v до v равно 0
+        }
+            </code></pre>
+              </div>
+      </div>
+    </section>
+    <section class = "clearfix center-container">
+        <div class = "container" style="width: 900px;">
+          <div class = "what-graph float-left">
+        <br>
+        <p style = "font-size: 22px; padding: 50px 0 0 0; margin-top:20px;">
+            Поскольку в языке C++ не существует целочисленного значения  +∞,  то  мы  объявим  что-то  достаточно близкое :)        </p>
+            <pre><code class="C++" style="background-color: transparent; font-size: 18px;">
+  const int inf = 1000000000; // inf — от слова infinity (бесконечность)
+            </code></pre>
+              </div>
+      </div>
+    </section>
+    <section class = "clearfix center-container">
+        <div class = "container" style="width: 900px;">
+          <div class = "what-graph float-left">
+        <br>
+        <p style = "font-size: 22px; padding: 50px 0 0 0; margin-top:20px;">
+            Кроме  того  будем  помечать  вершины,  для  которых расстояние уже известно черным цветом. Для этого мы заведем  массив  color,  который  будет  хранить  в  себе цвета вершин:
+        </p>
+            <p style = "font-size: 22px; padding: 50px 0 0 0; margin-top:20px;">
+              ●color[i]  =  0,  если  i  имеет  белый  цвет  и  точное расстояние до нее ещё не найдено    
+            </p>
+            <p style = "font-size: 22px; padding: 50px 0 0 0; margin-top:20px;">
+                ●color[i] = 1, i имеет черный цвет и расстояние до этой вершины найдено и меняться не будет  
+              </p>
+              <p style = "font-size: 22px; padding: 50px 0 0 0; margin-top:20px;">
+                  Дополним нашу функцию init.
+                </p>
+            <pre><code class="C++" style="background-color: transparent; font-size: 18px;">
+        int D[n];
+        int color[n];
+        void init(int v) {
+          for (int i = 0; i < n; ++i) {
+            D[i] = inf;
+            color[i] = 0; // сначала все вершины белые
+          }
+          D[v] = 0; // расстояние от v до v равно 0
+        }
+            </code></pre>
+              </div>
+      </div>
+    </section>
+    <section class = "clearfix center-container">
+        <div class = "container" style="width: 900px;">
+          <div class = "what-graph float-left">
+        <h1 class="text-center float-left" style = "padding-bottom: 30px;">
+            Операция релаксации
+        </h1>
+        <br>
+        <p style = "font-size: 22px; padding: 50px 0 0 0; margin-top:20px;">
+            Релаксация  в  алгоритме  Дейкстры  —  это  обновление кратчайших   путей,   проходящих   из   некоторой вершины x.        </p>
+          <p style = "font-size: 22px; padding: 50px 0 0 0; margin-top:20px;">
+              Пусть  кратчайшее  расстояние  от v  до x  уже  известно, тогда мы можем взять все соседние с ней вершины и обновить  расстояние  до  них  на,  возможно,  более оптимальное.</p>
+              </div>
+      </div>
+    </section>
     <i class="fas fa-chevron-circle-right" id = "next"></i>
     <i class="fas fa-chevron-circle-right" id = "previous"></i>
     <script>
