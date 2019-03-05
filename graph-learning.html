@@ -9,6 +9,67 @@
   </head>
   <body id = "body" style = "overflow:hidden;">
     <section class = "clearfix center-container">
+      <div class = "container" style="width: 900px;">
+          <div class = "what-graph float-left" style="width: 400px; padding-top: 100px;">
+        <h1 class="float-left" style = "padding-bottom: 30px; ">
+              Пример графа
+        </h1>
+
+        <button type="button" class="btn btn-primary" id = "add_edge" style="margin-top:350px; font-size: 24px;">Добавить вершину</button>
+
+          <div id = "edge_block">
+
+            <input type="text" class="form-control edge" placeholder="">
+            <input type="text" class="form-control edge" placeholder="">
+        
+          </div>
+
+              </div>
+              <div>
+                <img class = "float-right" src="src/graf5.png" style="margin-top: 150px;">
+              </div>
+      </div>
+    </section>
+
+    <script>
+      let rectIsMove = false;
+      let edges = document.getElementsByClassName("edge");
+      let template = edges[0];
+      let edgesXY = [[100, 100, 0, 0], [100, 100, 0, 0]];
+      let selectedEdge = -1;
+      add_edge.onclick = function(){
+        edgesXY.push([100, 100, 0, 0]);
+        
+        document.getElementById("edge_block").appendChild(template);
+      }
+
+      setInterval(function () {
+        
+      for(let i = 0; i < document.getElementsByClassName("edge").length; i++){
+      edges[i].addEventListener('mousedown', function(e){
+        console.log(i);
+        rectIsMove = true;
+        edgesXY[i][2] = e.clientX - edgesXY[i][0];
+        edgesXY[i][3] = e.clientY - edgesXY[i][1];
+        selectedEdge = i;
+      });
+      }
+      }, 100)
+      document.addEventListener('mouseup', function(e){
+        rectIsMove = false;
+      })
+      document.addEventListener('mousemove', function(e){
+        console.log("w");
+          if(rectIsMove){
+            edgesXY[selectedEdge][0] = e.clientX - edgesXY[selectedEdge][2];
+            edgesXY[selectedEdge][1] = e.clientY - edgesXY[selectedEdge][3];
+            edges[selectedEdge].style.left = (e.clientX-edgesXY[selectedEdge][2]).toString() + "px";
+            edges[selectedEdge].style.top = (e.clientY-edgesXY[selectedEdge][3]).toString() + "px";
+          }
+      })
+    </script>
+
+    <section class = "clearfix center-container">
         <div class = "container" style="width: 900px;">
           <div class = "what-graph float-left">
         <h1 class="text-center float-left" style = "padding-bottom: 30px;">
@@ -101,6 +162,7 @@
                 </div>
         </div>
       </section>
+      
     <i class="fas fa-chevron-circle-right" id = "next"></i>
     <i class="fas fa-chevron-circle-right" id = "previous"></i>
     <script>

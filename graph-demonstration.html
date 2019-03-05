@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="ru" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="css/styles.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+    <title>Graphs</title>
+  </head>
+  <body id = "body" style = "overflow:hidden;">
+      <div class = "container" style="width: 900px;">
+          <div class = "what-graph float-left" style="width: 400px; padding-top: 100px;">
+        <h1 class="float-left" style = "padding-bottom: 30px; ">
+              Пример графа
+        </h1>
+
+        <button type="button" class="btn btn-primary" id = "add_edge" style="margin-top:350px; font-size: 24px;">Добавить вершину</button>
+
+          <div id = "edge_block">
+          </div>
+
+              </div>
+              <div>
+                <img class = "float-right" src="src/graf5.png" style="margin-top: 150px;">
+              </div>
+      </div>
+      <div id = "pts"></div>
+<canvas class = "canv" width = "5000" height = "5000";></canvas>
+
+  <input type="number" placeholder="От" id = "t1">
+  <input type="number" placeholder="До" id = "t2">
+  <button onclick="dejkstra(t1.value, t2.value)" >Расчитать</button>
+    <script>
+
+var cx = document.querySelector("canvas").getContext("2d");
+
+
+      let rectIsMove = false;
+      let edges = document.getElementsByClassName("edge");
+      let template = edges[0];
+      let edgesXY = [[100, 100, 0, 0], [100, 100, 0, 0]];
+      let selectedEdge = -1;
+      let cntEdges = 0;
+      let pickEdge = -1;
+      pathes = [];
+      let mkpath = false;
+
+      add_edge.onclick = function(){
+
+
+
+        let child_elem = document.createElement("input");
+        child_elem.setAttribute("type", "text");
+        child_elem.classList.add("form-control");
+        child_elem.classList.add("edge"); 
+        child_elem.setAttribute("placeholder", cntEdges.toString());
+        child_elem.setAttribute("readonly", "readonly");
+        cntEdges++;
+        edge_block.appendChild(child_elem);
+        edgesXY.push([100, 100, 0, 0]);
+        try {
+          document.getElementById("edge_block").insertBefore(template, NaN);
+        } catch (e) {}
+      }
+
+      setInterval(function () {
+        
+      for(let i = 0; i < document.getElementsByClassName("edge").length; i++){
+      edges[i].addEventListener('mousedown', function(e){
+          
+        
+        if(!mkpath){
+        console.log(i);
+        rectIsMove = true;
+        edgesXY[i][2] = e.clientX - edgesXY[i][0];
+        edgesXY[i][3] = e.clientY - edgesXY[i][1];
+        selectedEdge = i;
+        }
+      });
+      edges[i].ondblclick = function(){
+        if(mkpath){
+            rectIsMove = false;
+            selectedEdge = -1;
+            pathes.push([pickEdge, i, prompt('Введите расстояние:')]);
+            mkpath = false;
+          }
+          else{
+          mkpath = true;
+          pickEdge = i;
+          }
+      }
+      }
+      }, 100)
+      document.addEventListener('mouseup', function(e){
+        rectIsMove = false;
+      })
+      document.addEventListener('mousemove', function(e){
+        console.log("w");
+          if(rectIsMove){
+            edgesXY[selectedEdge][0] = e.clientX - edgesXY[selectedEdge][2];
+            edgesXY[selectedEdge][1] = e.clientY - edgesXY[selectedEdge][3];
+            edges[selectedEdge].style.left = (e.clientX-edgesXY[selectedEdge][2]).toString() + "px";
+            edges[selectedEdge].style.top = (e.clientY-edgesXY[selectedEdge][3]).toString() + "px";
+          }
+            cx.clearRect(0, 0, 5000, 5000);
+            pts.innerHTML = '';
+            cx.beginPath();
+          if(mkpath){
+              
+                cx.moveTo(edgesXY[selectedEdge][0] + 25, edgesXY[selectedEdge][1] + 25);
+                cx.lineTo(e.clientX, e.clientY);
+            cx.stroke();
+          }
+          for(let j = 0; j < pathes.length; j++){
+            cx.moveTo(edgesXY[pathes[j][0]][0] + 25, edgesXY[pathes[j][0]][1] + 25);
+                cx.lineTo(edgesXY[pathes[j][1]][0] + 25, edgesXY[pathes[j][1]][1] + 25);
+            cx.stroke();
+            let ttx = document.createElement("span");
+            ttx.innerHTML = pathes[j][2].toString() + " (" + pathes[j][0] + " -> " + pathes[j][1] + ")";
+            ttx.style.position = "absolute";
+            ttx.style.left = ((edgesXY[pathes[j][0]][0] + 50 + edgesXY[pathes[j][1]][0])/2).toString() + "px";
+            ttx.style.top = ((edgesXY[pathes[j][0]][1] + 50 + edgesXY[pathes[j][1]][1])/2).toString() + "px";
+            pts.appendChild(ttx);
+          }
+          cx.closePath();
+      });
+
+      let D = [];
+      let color = [];
+
+      function dejkstra(v, e){
+        for(let i = 0; i < cntEdges; i++){
+          D.push(10000000);
+          color.push(0);
+        }
+        D[v] = 0;
+        let x;
+        while ((x = findMin()) != -1){
+          color[x] = 1;
+          relax(x);
+        }
+        console.log(D[e]);
+      }
+
+      function relax(x) {
+        let tarr = [];
+        for(let i = 0; i < pathes.length; i++){
+          if(pathes[i][0] == x){
+            tarr.push([pathes[i][1],parseInt(pathes[i][2])])
+            console.log([pathes[i][1],parseInt(pathes[i][2])])
+        }
+        }
+        for (let i = 0; i < tarr.length; i++){
+            if (D[tarr[i][0]] > D[x] + tarr[i][1])
+            D[tarr[i][0]] = D[x] + tarr[i][1];
+          }
+        }
+
+        function findMin(){
+          let x = -1;
+          let dist = 10000000;
+          for (let i = 0; i < cntEdges; ++i) {
+            if (D[i] < dist && color[i] == 0){
+              x = i;
+              dist = D[i]; 
+            }
+          }
+          console.log(x);
+          return x;
+        }
+
+
+    </script>
+
+  </body>
+</html>

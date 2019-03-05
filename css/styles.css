@@ -37,6 +37,13 @@ body, html {
  background: linear-gradient(left, #F2C14E, #F78154); /* Стандартный синтаксис */
 }
 
+.canv{
+  position: absolute;
+  left: 0;
+  right: 0;
+  z-index: -1;
+}
+
 .nav-link{
   color: white;
   font-family: HelveticaNeueLight;
@@ -57,12 +64,24 @@ body, html {
 
 .fa-question-circle:hover{
     background-color: white;
-    border-radius: 25px;
+    border-radius: 50px;
     color: #007bff;
 }
 
 .github i{
   color: white;
+}
+
+.edge{
+  text-align: center;
+  border: 2px solid rgb(0,0,0);
+  border-radius: 20px;
+  width: 50px;
+  height: 50px;
+  background-color: white;
+  position: absolute;
+  top: 100px;
+  left: 100px;
 }
 
 .graph-img{
