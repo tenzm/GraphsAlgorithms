@@ -11,7 +11,7 @@
       <div class = "container" style="width: 900px;">
           <div class = "what-graph float-left" style="width: 400px; padding-top: 100px;">
         <h1 class="float-left" style = "padding-bottom: 30px; ">
-              Пример графа
+            Демонстрация
         </h1>
 
         <button type="button" class="btn btn-primary" id = "add_edge" style="margin-top:350px; font-size: 24px;">Добавить вершину</button>
@@ -19,10 +19,9 @@
           От <input type="number" placeholder="От" id = "t1">
           До <input type="number" placeholder="До" id = "t2">
           <button onclick="dejkstra(t1.value, t2.value)" style="margin-top:10px;" >Расчитать</button>
-          <p id = "res" style="font-size: 24pt;"></p>
         </div>
         <button type="button" class="btn btn-primary" id = "step_btn" onclick="step();" style="margin-top:10px; font-size: 24px;" disabled>Следующий шаг</button>
-
+        <p id = "res" style="font-size: 24pt;"></p>
           <div id = "edge_block">
           </div>
 
