@@ -7,7 +7,7 @@
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
     <title>Graphs</title>
   </head>
-  <body id = "body" style = "overflow:hidden;">
+  <body id = "body" style = "z-index: -2;  background: rgb(255, 228, 170);">
       <div class = "container" style="width: 900px;">
           <div class = "what-graph float-left" style="width: 400px; padding-top: 100px;">
         <h1 class="float-left" style = "padding-bottom: 30px; ">
@@ -15,21 +15,24 @@
         </h1>
 
         <button type="button" class="btn btn-primary" id = "add_edge" style="margin-top:350px; font-size: 24px;">Добавить вершину</button>
+        <div style="margin-top: 40px;">
+          От <input type="number" placeholder="От" id = "t1">
+          До <input type="number" placeholder="До" id = "t2">
+          <button onclick="dejkstra(t1.value, t2.value)" style="margin-top:10px;" >Расчитать</button>
+          <p id = "res" style="font-size: 24pt;"></p>
+        </div>
+        <button type="button" class="btn btn-primary" id = "step_btn" onclick="step();" style="margin-top:10px; font-size: 24px;" disabled>Следующий шаг</button>
 
           <div id = "edge_block">
           </div>
 
               </div>
-              <div>
-                <img class = "float-right" src="src/graf5.png" style="margin-top: 150px;">
-              </div>
       </div>
       <div id = "pts"></div>
+      <div id = "dts"></div>
 <canvas class = "canv" width = "5000" height = "5000";></canvas>
 
-  <input type="number" placeholder="От" id = "t1">
-  <input type="number" placeholder="До" id = "t2">
-  <button onclick="dejkstra(t1.value, t2.value)" >Расчитать</button>
+  
     <script>
 
 var cx = document.querySelector("canvas").getContext("2d");
@@ -61,6 +64,7 @@ var cx = document.querySelector("canvas").getContext("2d");
         try {
           document.getElementById("edge_block").insertBefore(template, NaN);
         } catch (e) {}
+        update_dist();
       }
 
       setInterval(function () {
@@ -81,6 +85,7 @@ var cx = document.querySelector("canvas").getContext("2d");
         if(mkpath){
             rectIsMove = false;
             selectedEdge = -1;
+          if(pickEdge != i)
             pathes.push([pickEdge, i, prompt('Введите расстояние:')]);
             mkpath = false;
           }
@@ -122,24 +127,54 @@ var cx = document.querySelector("canvas").getContext("2d");
             ttx.style.top = ((edgesXY[pathes[j][0]][1] + 50 + edgesXY[pathes[j][1]][1])/2).toString() + "px";
             pts.appendChild(ttx);
           }
-          cx.closePath();
+
+          update_dist();
+          
       });
+
+      function update_dist (){
+        dts.innerHTML = "";
+        for(let j = 0; j < cntEdges; j++){
+            let ttx = document.createElement("span");
+            D.push(10000000);
+            color.push(0);
+            ttx.innerHTML = "dist: " + D[j].toString();
+            ttx.style.position = "absolute";
+            ttx.style.left = (edgesXY[j][0] + 60).toString() + "px";
+            ttx.style.top = (edgesXY[j][1] + 12).toString() + "px";
+            dts.appendChild(ttx);
+            if(color[j] == 1){
+              edges[j].style.backgroundColor = "#ffc107";
+            }
+          }
+          cx.closePath();
+      }
 
       let D = [];
       let color = [];
+      let end;
 
-      function dejkstra(v, e){
-        for(let i = 0; i < cntEdges; i++){
-          D.push(10000000);
-          color.push(0);
-        }
-        D[v] = 0;
-        let x;
-        while ((x = findMin()) != -1){
+      function step(){
+        x = findMin();
+        if(x != -1){
           color[x] = 1;
           relax(x);
         }
-        console.log(D[e]);
+        else{
+          res.innerHTML = "Результат: " + D[end];
+        }
+        update_dist();
+      }
+
+      function dejkstra(v, e){
+        if(pathes.length > 0){
+        step_btn.disabled = false;
+        D[v] = 0;
+        let x;
+        end = e;
+        edges[v].style.backgroundColor = "#ffc107";
+        update_dist();
+        }
       }
 
       function relax(x) {
@@ -149,10 +184,12 @@ var cx = document.querySelector("canvas").getContext("2d");
             tarr.push([pathes[i][1],parseInt(pathes[i][2])])
             console.log([pathes[i][1],parseInt(pathes[i][2])])
         }
+            col = getRandomColor();
         }
         for (let i = 0; i < tarr.length; i++){
             if (D[tarr[i][0]] > D[x] + tarr[i][1])
             D[tarr[i][0]] = D[x] + tarr[i][1];
+            edges[tarr[i][0]].style.backgroundColor = col;
           }
         }
 
@@ -169,6 +206,14 @@ var cx = document.querySelector("canvas").getContext("2d");
           return x;
         }
 
+        function getRandomColor() {
+  var letters = '0123456789ABCDEF';
+  var color = '#';
+  for (var i = 0; i < 6; i++) {
+    color += letters[Math.floor(Math.random() * 16)];
+  }
+  return color;
+}
 
     </script>
 

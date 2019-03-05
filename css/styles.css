@@ -30,6 +30,7 @@ body, html {
   align-items: center;
   justify-content: center;
   height: 100%;
+  z-index: -10;
    background: #F2C14E; /* Для браузеров, которые не поддерживают градиенты */
  background: -webkit-linear-gradient(left, #F2C14E, #F78154); /* Для Safari 5.1 - 6.0 */
  background: -o-linear-gradient(left, #F2C14E, #F78154); /* Для Opera 11.1 - 12.0 */
