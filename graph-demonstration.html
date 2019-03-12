@@ -74,7 +74,6 @@ let l = 1;
         try {
           document.getElementById("edge_block").insertBefore(template, NaN);
         } catch (e) {}
-        document.getElementById("svgs").innerHTML += triangle_template;
         update_dist();
       }
 
@@ -85,7 +84,6 @@ let l = 1;
           
         
         if(!mkpath){
-        console.log(i);
         rectIsMove = true;
         edgesXY[i][2] = e.clientX - edgesXY[i][0];
         edgesXY[i][3] = e.clientY - edgesXY[i][1];
@@ -97,7 +95,8 @@ let l = 1;
             rectIsMove = false;
             selectedEdge = -1;
           if(pickEdge != i)
-            pathes.push([pickEdge, i, prompt('Введите расстояние:')]);
+        document.getElementById("svgs").innerHTML += triangle_template;
+            pathes.push([pickEdge, i, prompt('Введите расстояние:'), false]);
             mkpath = false;
           }
           else{
@@ -111,7 +110,6 @@ let l = 1;
         rectIsMove = false;
       })
       document.addEventListener('mousemove', function(e){
-        console.log("w");
           if(rectIsMove){
             edgesXY[selectedEdge][0] = e.clientX - edgesXY[selectedEdge][2];
             edgesXY[selectedEdge][1] = e.clientY - edgesXY[selectedEdge][3];
@@ -151,10 +149,15 @@ let l = 1;
             else triangles[j].style.transformOrigin = "19px 30px 0px";
               r_radius += 180;
             }
-            
-            console.log("sin" + a.toString());
-            console.log("cos" + bb.toString());
-            console.log("rad" + r_radius.toString());
+            ///cx.strokeStyle = "black";
+            if(pathes[j][3]){
+              cx.beginPath();
+              cx.strokeStyle = "red";
+            }
+            else{
+              cx.beginPath();
+              cx.strokeStyle = "black";
+            }
             triangles[j].style.left = (edgesXY[pathes[j][1]][0] - aa).toString() + "px";
             triangles[j].style.top = (edgesXY[pathes[j][1]][1] - bb).toString() + "px";
             triangles[j].style.transform = "rotate(" + r_radius.toString() + "deg)";
@@ -194,6 +197,7 @@ let l = 1;
       let D = [];
       let color = [];
       let end;
+      let start;
 
       function step(){
         x = findMin();
@@ -203,6 +207,7 @@ let l = 1;
         }
         else{
           res.innerHTML = "Результат: " + D[end];
+          lightWay(start, end);
         }
         update_dist();
       }
@@ -213,6 +218,7 @@ let l = 1;
         D[v] = 0;
         let x;
         end = e;
+        start = v;
         edges[v].style.backgroundColor = "#ffc107";
         update_dist();
         }
@@ -223,7 +229,6 @@ let l = 1;
         for(let i = 0; i < pathes.length; i++){
           if(pathes[i][0] == x){
             tarr.push([pathes[i][1],parseInt(pathes[i][2])])
-            console.log([pathes[i][1],parseInt(pathes[i][2])])
         }
             col = getRandomColor();
         }
@@ -234,6 +239,32 @@ let l = 1;
           }
         }
 
+        function lightWay(from, to){
+          now = to;
+          while (now != from) {
+            for(let i = 0; i < pathes.length; i++){
+              if(pathes[i][1] == now && D[now] - pathes[i][2] == D[pathes[i][0]]){
+                console.log(now);
+                pathes[i][3] = true;
+                now = pathes[i][0];
+                break;
+              }
+            }
+          }
+
+          cx.beginPath();
+          cx.strokeStyle = "red";
+          for(let j = 0; j < pathes.length; j++){
+            if(pathes[j][3]){
+
+            cx.moveTo(edgesXY[pathes[j][0]][0] + 25, edgesXY[pathes[j][0]][1] + 25);
+                cx.lineTo(edgesXY[pathes[j][1]][0] + 25, edgesXY[pathes[j][1]][1] + 25);
+            cx.stroke();
+            }
+          }
+        }
+
+
         function findMin(){
           let x = -1;
           let dist = 10000000;
@@ -243,7 +274,6 @@ let l = 1;
               dist = D[i]; 
             }
           }
-          console.log(x);
           return x;
         }
 
