@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="ru" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="css/styles.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+    <title>Graphs</title>
+  </head>
+  <body id = "body" style = "z-index: -2;  background: rgb(255, 228, 170);">
+    <div id = "svgs">
+    <svg height="50" class = "triangle" width="50" style="transform-origin: 19px 30px 0px; transform: rotate(45deg); position: absolute; left:-100px;">
+      <polygon points="12,3 5,20 20,20" />
+      Sorry, your browser does not support inline SVG.
+  </svg>
+</div>
+      <div class = "container" style="width: 900px;">
+          <div class = "what-graph float-left" style="width: 400px; padding-top: 100px;">
+        <h1 class="float-left" style = "padding-bottom: 30px; ">
+            Демонстрация
+        </h1>
+
+        <button type="button" class="btn btn-primary" id = "add_edge" style="margin-top:350px; font-size: 24px;">Добавить вершину</button>
+        <div style="margin-top: 40px;">
+          От <input type="number" placeholder="От" id = "t1">
+          До <input type="number" placeholder="До" id = "t2">
+          <button onclick="dejkstra(t1.value, t2.value)" style="margin-top:10px;" >Расчитать</button>
+        </div>
+        <button type="button" class="btn btn-primary" id = "step_btn" onclick="step();" style="margin-top:10px; font-size: 24px;" disabled>Следующий шаг</button>
+        <p id = "res" style="font-size: 24pt;"></p>
+          <div id = "edge_block">
+          </div>
+          <p>
+            Вершины можно перетаскивать с зажатой левой кнопкой мыши.
+          </p>
+          <p>
+            Соединить две вершины можно двойным нажатием левой кнопкой мыши на каждую из них.
+          </p>
+              </div>
+      </div>
+      <div id = "pts"></div>
+      <div id = "dts"></div>
+<canvas class = "canv" width = "5000" height = "5000";></canvas>
+
+  
+    <script>
+
+var cx = document.querySelector("canvas").getContext("2d");
+
+let k = 1;
+let l = 1;
+
+      let rectIsMove = false;
+      let edges = document.getElementsByClassName("edge");
+
+      let template = edges[0];
+      let edgesXY = [[100, 100, 0, 0], [100, 100, 0, 0]];
+      let selectedEdge = -1;
+      let cntEdges = 0;
+      let pickEdge = -1;
+      pathes = [];
+      let mkpath = false;
+
+      let triangle_template = document.getElementById("svgs").innerHTML;
+
+      add_edge.onclick = function(){
+
+
+
+        let child_elem = document.createElement("input");
+        child_elem.setAttribute("type", "text");
+        child_elem.classList.add("form-control");
+        child_elem.classList.add("edge"); 
+        child_elem.setAttribute("placeholder", cntEdges.toString());
+        child_elem.setAttribute("readonly", "readonly");
+        cntEdges++;
+        edge_block.appendChild(child_elem);
+        edgesXY.push([100, 100, 0, 0]);
+        try {
+          document.getElementById("edge_block").insertBefore(template, NaN);
+        } catch (e) {}
+        update_dist();
+      }
+
+      setInterval(function () {
+        
+      for(let i = 0; i < document.getElementsByClassName("edge").length; i++){
+      edges[i].addEventListener('mousedown', function(e){
+          
+        
+        if(!mkpath){
+        rectIsMove = true;
+        edgesXY[i][2] = e.clientX - edgesXY[i][0];
+        edgesXY[i][3] = e.clientY - edgesXY[i][1];
+        selectedEdge = i;
+        }
+      });
+      edges[i].ondblclick = function(){
+        if(mkpath){
+            rectIsMove = false;
+            selectedEdge = -1;
+          if(pickEdge != i)
+        document.getElementById("svgs").innerHTML += triangle_template;
+            pathes.push([pickEdge, i, prompt('Введите расстояние:'), false]);
+            mkpath = false;
+          }
+          else{
+          mkpath = true;
+          pickEdge = i;
+          }
+      }
+      }
+      }, 100)
+      document.addEventListener('mouseup', function(e){
+        rectIsMove = false;
+      })
+      document.addEventListener('mousemove', function(e){
+          if(rectIsMove){
+            edgesXY[selectedEdge][0] = e.clientX - edgesXY[selectedEdge][2];
+            edgesXY[selectedEdge][1] = e.clientY - edgesXY[selectedEdge][3];
+            edges[selectedEdge].style.left = (e.clientX-edgesXY[selectedEdge][2]).toString() + "px";
+            edges[selectedEdge].style.top = (e.clientY-edgesXY[selectedEdge][3]).toString() + "px";
+          }
+            cx.clearRect(0, 0, 5000, 5000);
+            pts.innerHTML = '';
+            cx.beginPath();
+          if(mkpath){
+              
+                cx.moveTo(edgesXY[selectedEdge][0] + 25, edgesXY[selectedEdge][1] + 25);
+                cx.lineTo(e.clientX, e.clientY);
+            cx.stroke();
+          }
+          for(let j = 0; j < pathes.length; j++){
+            let triangles = document.getElementsByClassName("triangle");
+            let a = edgesXY[pathes[j][0]][0] - edgesXY[pathes[j][1]][0];
+            let b = edgesXY[pathes[j][0]][1] - edgesXY[pathes[j][1]][1];
+            let r_radius = Math.atan((a/b));
+            let aa = (Math.sin(r_radius)) * 55;
+            let bb = (Math.cos(r_radius)) * 55;
+            if(b >= 0){
+              aa = (Math.sin(r_radius)) * -60 - 12.5;
+            bb = (Math.cos(r_radius)) * -60;
+            if (a > 0) triangles[j].style.transformOrigin = "19px 20px 0px";
+            else triangles[j].style.transformOrigin = "19px 30px 0px";
+            }
+            r_radius *= -57,2958;
+            if (b < 0){ 
+            if (a > 0){
+              triangles[j].style.transformOrigin = "19px 20px 0px";
+
+              let aa = (Math.sin(r_radius)) * 30;
+              let bb = (Math.cos(r_radius)) * 30;
+            }
+            else triangles[j].style.transformOrigin = "19px 30px 0px";
+              r_radius += 180;
+            }
+            ///cx.strokeStyle = "black";
+            if(pathes[j][3]){
+              cx.beginPath();
+              cx.strokeStyle = "red";
+            }
+            else{
+              cx.beginPath();
+              cx.strokeStyle = "black";
+            }
+            triangles[j].style.left = (edgesXY[pathes[j][1]][0] - aa).toString() + "px";
+            triangles[j].style.top = (edgesXY[pathes[j][1]][1] - bb).toString() + "px";
+            triangles[j].style.transform = "rotate(" + r_radius.toString() + "deg)";
+            cx.moveTo(edgesXY[pathes[j][0]][0] + 25, edgesXY[pathes[j][0]][1] + 25);
+                cx.lineTo(edgesXY[pathes[j][1]][0] + 25, edgesXY[pathes[j][1]][1] + 25);
+            cx.stroke();
+            let ttx = document.createElement("span");
+            ttx.innerHTML = pathes[j][2].toString();
+            ttx.style.position = "absolute";
+            ttx.style.left = ((edgesXY[pathes[j][0]][0] + 50 + edgesXY[pathes[j][1]][0])/2).toString() + "px";
+            ttx.style.top = ((edgesXY[pathes[j][0]][1] + 50 + edgesXY[pathes[j][1]][1])/2).toString() + "px";
+            pts.appendChild(ttx);
+          }
+
+          update_dist();
+          
+      });
+
+      function update_dist (){
+        dts.innerHTML = "";
+        for(let j = 0; j < cntEdges; j++){
+            let ttx = document.createElement("span");
+            D.push(10000000);
+            color.push(0);
+            ttx.innerHTML = "dist: " + D[j].toString();
+            ttx.style.position = "absolute";
+            ttx.style.left = (edgesXY[j][0] + 60).toString() + "px";
+            ttx.style.top = (edgesXY[j][1] + 12).toString() + "px";
+            dts.appendChild(ttx);
+            if(color[j] == 1){
+              edges[j].style.backgroundColor = "#ffc107";
+            }
+          }
+          cx.closePath();
+      }
+
+      let D = [];
+      let color = [];
+      let end;
+      let start;
+
+      function step(){
+        x = findMin();
+        if(x != -1){
+          color[x] = 1;
+          relax(x);
+        }
+        else{
+          res.innerHTML = "Результат: " + D[end];
+          lightWay(start, end);
+        }
+        update_dist();
+      }
+
+      function dejkstra(v, e){
+        if(pathes.length > 0){
+        step_btn.disabled = false;
+        D[v] = 0;
+        let x;
+        end = e;
+        start = v;
+        edges[v].style.backgroundColor = "#ffc107";
+        update_dist();
+        }
+      }
+
+      function relax(x) {
+        let tarr = [];
+        for(let i = 0; i < pathes.length; i++){
+          if(pathes[i][0] == x){
+            tarr.push([pathes[i][1],parseInt(pathes[i][2])])
+        }
+            col = getRandomColor();
+        }
+        for (let i = 0; i < tarr.length; i++){
+            if (D[tarr[i][0]] > D[x] + tarr[i][1])
+            D[tarr[i][0]] = D[x] + tarr[i][1];
+            edges[tarr[i][0]].style.backgroundColor = col;
+          }
+        }
+
+        function lightWay(from, to){
+          now = to;
+          while (now != from) {
+            for(let i = 0; i < pathes.length; i++){
+              if(pathes[i][1] == now && D[now] - pathes[i][2] == D[pathes[i][0]]){
+                console.log(now);
+                pathes[i][3] = true;
+                now = pathes[i][0];
+                break;
+              }
+            }
+          }
+
+          cx.beginPath();
+          cx.strokeStyle = "red";
+          for(let j = 0; j < pathes.length; j++){
+            if(pathes[j][3]){
+
+            cx.moveTo(edgesXY[pathes[j][0]][0] + 25, edgesXY[pathes[j][0]][1] + 25);
+                cx.lineTo(edgesXY[pathes[j][1]][0] + 25, edgesXY[pathes[j][1]][1] + 25);
+            cx.stroke();
+            }
+          }
+        }
+
+
+        function findMin(){
+          let x = -1;
+          let dist = 10000000;
+          for (let i = 0; i < cntEdges; ++i) {
+            if (D[i] < dist && color[i] == 0){
+              x = i;
+              dist = D[i]; 
+            }
+          }
+          return x;
+        }
+
+        function getRandomColor() {
+  var letters = '0123456789ABCDEF';
+  var color = '#';
+  for (var i = 0; i < 6; i++) {
+    color += letters[Math.floor(Math.random() * 16)];
+  }
+  return color;
+}
+
+    </script>
+
+  </body>
+</html>
