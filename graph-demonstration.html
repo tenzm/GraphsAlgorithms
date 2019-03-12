@@ -8,6 +8,12 @@
     <title>Graphs</title>
   </head>
   <body id = "body" style = "z-index: -2;  background: rgb(255, 228, 170);">
+    <div id = "svgs">
+    <svg height="50" class = "triangle" width="50" style="transform-origin: 19px 30px 0px; transform: rotate(45deg); position: absolute; left:-100px;">
+      <polygon points="12,3 5,20 20,20" />
+      Sorry, your browser does not support inline SVG.
+  </svg>
+</div>
       <div class = "container" style="width: 900px;">
           <div class = "what-graph float-left" style="width: 400px; padding-top: 100px;">
         <h1 class="float-left" style = "padding-bottom: 30px; ">
@@ -36,9 +42,12 @@
 
 var cx = document.querySelector("canvas").getContext("2d");
 
+let k = 1;
+let l = 1;
 
       let rectIsMove = false;
       let edges = document.getElementsByClassName("edge");
+
       let template = edges[0];
       let edgesXY = [[100, 100, 0, 0], [100, 100, 0, 0]];
       let selectedEdge = -1;
@@ -46,6 +55,8 @@ var cx = document.querySelector("canvas").getContext("2d");
       let pickEdge = -1;
       pathes = [];
       let mkpath = false;
+
+      let triangle_template = document.getElementById("svgs").innerHTML;
 
       add_edge.onclick = function(){
 
@@ -63,6 +74,7 @@ var cx = document.querySelector("canvas").getContext("2d");
         try {
           document.getElementById("edge_block").insertBefore(template, NaN);
         } catch (e) {}
+        document.getElementById("svgs").innerHTML += triangle_template;
         update_dist();
       }
 
@@ -116,11 +128,41 @@ var cx = document.querySelector("canvas").getContext("2d");
             cx.stroke();
           }
           for(let j = 0; j < pathes.length; j++){
+            let triangles = document.getElementsByClassName("triangle");
+            let a = edgesXY[pathes[j][0]][0] - edgesXY[pathes[j][1]][0];
+            let b = edgesXY[pathes[j][0]][1] - edgesXY[pathes[j][1]][1];
+            let r_radius = Math.atan((a/b));
+            let aa = (Math.sin(r_radius)) * 55;
+            let bb = (Math.cos(r_radius)) * 55;
+            if(b >= 0){
+              aa = (Math.sin(r_radius)) * -60 - 12.5;
+            bb = (Math.cos(r_radius)) * -60;
+            if (a > 0) triangles[j].style.transformOrigin = "19px 20px 0px";
+            else triangles[j].style.transformOrigin = "19px 30px 0px";
+            }
+            r_radius *= -57,2958;
+            if (b < 0){ 
+            if (a > 0){
+              triangles[j].style.transformOrigin = "19px 20px 0px";
+
+              let aa = (Math.sin(r_radius)) * 30;
+              let bb = (Math.cos(r_radius)) * 30;
+            }
+            else triangles[j].style.transformOrigin = "19px 30px 0px";
+              r_radius += 180;
+            }
+            
+            console.log("sin" + a.toString());
+            console.log("cos" + bb.toString());
+            console.log("rad" + r_radius.toString());
+            triangles[j].style.left = (edgesXY[pathes[j][1]][0] - aa).toString() + "px";
+            triangles[j].style.top = (edgesXY[pathes[j][1]][1] - bb).toString() + "px";
+            triangles[j].style.transform = "rotate(" + r_radius.toString() + "deg)";
             cx.moveTo(edgesXY[pathes[j][0]][0] + 25, edgesXY[pathes[j][0]][1] + 25);
                 cx.lineTo(edgesXY[pathes[j][1]][0] + 25, edgesXY[pathes[j][1]][1] + 25);
             cx.stroke();
             let ttx = document.createElement("span");
-            ttx.innerHTML = pathes[j][2].toString() + " (" + pathes[j][0] + " -> " + pathes[j][1] + ")";
+            ttx.innerHTML = pathes[j][2].toString();
             ttx.style.position = "absolute";
             ttx.style.left = ((edgesXY[pathes[j][0]][0] + 50 + edgesXY[pathes[j][1]][0])/2).toString() + "px";
             ttx.style.top = ((edgesXY[pathes[j][0]][1] + 50 + edgesXY[pathes[j][1]][1])/2).toString() + "px";
