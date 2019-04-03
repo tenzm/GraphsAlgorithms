@@ -148,15 +148,18 @@
                   }
                 }
                 if (may_create) {
-                  document.getElementById(
-                    "svgs"
-                  ).innerHTML += triangle_template;
-                  pathes.push([
-                    pickEdge,
-                    i,
-                    prompt("Введите расстояние:"),
-                    false
-                  ]);
+                  let dists = prompt("Введите расстояние:");
+                  if (!isNaN(parseInt(dists, 10))) {
+                    document.getElementById(
+                      "svgs"
+                    ).innerHTML += triangle_template;
+                    pathes.push([
+                      pickEdge,
+                      i,
+                      dists,
+                      false
+                    ]);
+                  }
                 }
               }
               mkpath = false;
