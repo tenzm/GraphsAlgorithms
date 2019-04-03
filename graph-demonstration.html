@@ -30,14 +30,21 @@
       <div style="margin-top: 40px;">
         От <input type="number" placeholder="От" id="t1" /> До
         <input type="number" placeholder="До" id="t2" />
-        <button onclick="dejkstra(t1.value, t2.value)" style="margin-top:10px;">
-          Расчитать
-        </button>
-      </div>
-      <button type="button" class="btn btn-primary" id="step_btn" onclick="step();"
-        style="margin-top:10px; font-size: 24px;" disabled>
-        Следующий шаг
+        <button type="button" class="btn btn-success" id="step_btn" onclick="dejkstra(t1.value, t2.value)"
+        style="margin-top:20px; font-size: 24px; float: left;">
+        Выполнить
       </button>
+      <button type="button" class="btn btn-primary" id="step_btn" onclick="step();"
+        style="margin-top:20px; font-size: 24px; float: left; margin-left: 15px;" disabled>
+        <i class="fas fa-fast-forward"></i>
+      </button>
+      <button type="button" class="btn btn-primary" id="step_btn" onclick="location.href=location.href"
+        style="margin-top:20px; font-size: 24px; float: left; margin-left: 15px;">
+        <i class="fas fa-sync-alt"></i>
+      </button>
+      <br><br><br><br>
+      </div>
+      
       <p id="res" style="font-size: 24pt;"></p>
       <div id="edge_block"></div>
       <p>
@@ -45,7 +52,7 @@
       </p>
       <p>
         Соединить две вершины можно двойным нажатием левой кнопкой мыши на
-        каждую из них.
+        каждой из них.
       </p>
     </div>
   </div>
