@@ -127,6 +127,14 @@
               rectIsMove = false;
               selectedEdge = -1;
               if (pickEdge != i) {
+                let may_create = true;
+                for(let p = 0; p < pathes.length; p++){
+                  if(pathes[p][0] == pickEdge && pathes[p][1] == i){
+                    may_create = false;
+                    break;
+                  }
+                }
+                if(may_create){
                 document.getElementById(
                   "svgs"
                 ).innerHTML += triangle_template;
@@ -135,7 +143,7 @@
                   i,
                   prompt("Введите расстояние:"),
                   false
-                ]);
+                ]);}
               }
               mkpath = false;
             } else {
