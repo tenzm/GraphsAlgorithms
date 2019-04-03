@@ -85,8 +85,8 @@
       child_elem.setAttribute("placeholder", cntEdges.toString());
       child_elem.setAttribute("readonly", "readonly");
       cntEdges++;
-      let random_x = Math.floor(Math.random() * (canvid.width-70)) + margin_x_canvas;
-      let random_y = Math.floor(Math.random() * (canvid.height-70)) + margin_y_canvas;
+      let random_x = Math.floor(Math.random() * (canvid.width - 70)) + margin_x_canvas;
+      let random_y = Math.floor(Math.random() * (canvid.height - 70)) + margin_y_canvas;
       child_elem.style.top = random_y.toString() + "px";
       child_elem.style.left = random_x.toString() + "px";
       edge_block.appendChild(child_elem);
@@ -105,6 +105,7 @@
     change_canvas();
     $(window).resize(change_canvas);
 
+
     setInterval(function () {
       for (
         let i = 0;
@@ -121,25 +122,27 @@
           }
         });
         edges[i].ondblclick = function () {
-          if (!is_review)
+          if (!is_review) {
             if (mkpath) {
               rectIsMove = false;
               selectedEdge = -1;
-              if (pickEdge != i)
+              if (pickEdge != i) {
                 document.getElementById(
                   "svgs"
                 ).innerHTML += triangle_template;
-              pathes.push([
-                pickEdge,
-                i,
-                prompt("Введите расстояние:"),
-                false
-              ]);
+                pathes.push([
+                  pickEdge,
+                  i,
+                  prompt("Введите расстояние:"),
+                  false
+                ]);
+              }
               mkpath = false;
             } else {
               mkpath = true;
               pickEdge = i;
             }
+          }
         };
       }
     }, 100);
@@ -148,38 +151,38 @@
     });
     document.addEventListener("mousemove", function (e) {
       if (rectIsMove) {
-        if (e.clientX- edgesXY[selectedEdge][2] < margin_x_canvas){
+        if (e.clientX - edgesXY[selectedEdge][2] < margin_x_canvas) {
           edgesXY[selectedEdge][0] = margin_x_canvas;
-        edges[selectedEdge].style.left =
-          (margin_x_canvas).toString() + "px";
+          edges[selectedEdge].style.left =
+            (margin_x_canvas).toString() + "px";
         }
-        else if (e.clientX- edgesXY[selectedEdge][2]+50 > margin_x_canvas + canvid.width){
+        else if (e.clientX - edgesXY[selectedEdge][2] + 50 > margin_x_canvas + canvid.width) {
           edgesXY[selectedEdge][0] = margin_x_canvas + canvid.width - 50;
-        edges[selectedEdge].style.left =
-          (margin_x_canvas + canvid.width - 50).toString() + "px";
+          edges[selectedEdge].style.left =
+            (margin_x_canvas + canvid.width - 50).toString() + "px";
         }
-        else{
+        else {
           edgesXY[selectedEdge][0] = e.clientX - edgesXY[selectedEdge][2];
-        edges[selectedEdge].style.left =
-          (e.clientX - edgesXY[selectedEdge][2]).toString() + "px";
+          edges[selectedEdge].style.left =
+            (e.clientX - edgesXY[selectedEdge][2]).toString() + "px";
         }
 
 
-        if (e.clientY- edgesXY[selectedEdge][3] < margin_y_canvas){
+        if (e.clientY - edgesXY[selectedEdge][3] < margin_y_canvas) {
           edgesXY[selectedEdge][1] = margin_y_canvas;
-        edges[selectedEdge].style.top =
-          (margin_y_canvas).toString() + "px";
+          edges[selectedEdge].style.top =
+            (margin_y_canvas).toString() + "px";
         }
 
-        else if (e.clientY- edgesXY[selectedEdge][3] + 50 > margin_y_canvas + canvid.height){
+        else if (e.clientY - edgesXY[selectedEdge][3] + 50 > margin_y_canvas + canvid.height) {
           edgesXY[selectedEdge][1] = margin_y_canvas + canvid.height - 50;
-        edges[selectedEdge].style.top =
-          (margin_y_canvas + canvid.height - 50).toString() + "px";
+          edges[selectedEdge].style.top =
+            (margin_y_canvas + canvid.height - 50).toString() + "px";
         }
-        else{
-        edgesXY[selectedEdge][1] = e.clientY - edgesXY[selectedEdge][3];
-        edges[selectedEdge].style.top =
-          (e.clientY - edgesXY[selectedEdge][3]).toString() + "px";
+        else {
+          edgesXY[selectedEdge][1] = e.clientY - edgesXY[selectedEdge][3];
+          edges[selectedEdge].style.top =
+            (e.clientY - edgesXY[selectedEdge][3]).toString() + "px";
         }
 
 
