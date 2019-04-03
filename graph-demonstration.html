@@ -28,23 +28,24 @@
         Добавить вершину
       </button>
       <div style="margin-top: 40px;">
-        От <input type="number" placeholder="От" id="t1" /> До
-        <input type="number" placeholder="До" id="t2" />
-        <button type="button" class="btn btn-success" id="step_btn" onclick="dejkstra(t1.value, t2.value)"
-        style="margin-top:20px; font-size: 24px; float: left;">
-        Выполнить
-      </button>
-      <button type="button" class="btn btn-primary" id="step_btn" onclick="step();"
-        style="margin-top:20px; font-size: 24px; float: left; margin-left: 15px;" disabled>
-        <i class="fas fa-fast-forward"></i>
-      </button>
-      <button type="button" class="btn btn-primary" id="step_btn" onclick="location.href=location.href"
-        style="margin-top:20px; font-size: 24px; float: left; margin-left: 15px;">
-        <i class="fas fa-sync-alt"></i>
-      </button>
-      <br><br><br><br>
+        Найти кратчайший пути от вершины <input type="number" class="form-control" placeholder="Укажите номер вершины"
+          id="t1" /> До вершины
+        <input type="number" class="form-control" placeholder="Укажите номер вершины" id="t2" />
+        <button type="button" class="btn btn-success" id="run_btn" onclick="dejkstra(t1.value, t2.value)"
+          style="margin-top:20px; font-size: 24px; float: left;">
+          Выполнить
+        </button>
+        <button type="button" class="btn btn-primary" id="step_btn" onclick="step();"
+          style="margin-top:20px; font-size: 24px; float: left; margin-left: 15px;" disabled>
+          <i class="fas fa-fast-forward"></i>
+        </button>
+        <button type="button" class="btn btn-primary" id="refresh_btn" onclick="location.href=location.href"
+          style="margin-top:20px; font-size: 24px; float: left; margin-left: 15px;">
+          <i class="fas fa-sync-alt"></i>
+        </button>
+        <br><br><br><br>
       </div>
-      
+
       <p id="res" style="font-size: 24pt;"></p>
       <div id="edge_block"></div>
       <p>
@@ -107,7 +108,7 @@
     function change_canvas() {
       canvid.width = (document.documentElement.clientWidth - 540).toString();
       canvid.height = (document.documentElement.clientHeight - margin_y_canvas * 2).toString();
-      left_demo_panel.style.marginTop = (document.documentElement.clientHeight / 2 - 220).toString() + "px";
+      left_demo_panel.style.marginTop = (document.documentElement.clientHeight / 2 - 240).toString() + "px";
     }
     change_canvas();
     $(window).resize(change_canvas);
@@ -281,6 +282,7 @@
         let ttx = document.createElement("span");
         ttx.innerHTML = pathes[j][2].toString();
         ttx.style.position = "absolute";
+        ttx.style.fontSize = "22px";
         ttx.style.left =
           (
             (edgesXY[pathes[j][0]][0] + 50 + edgesXY[pathes[j][1]][0]) /
@@ -305,6 +307,7 @@
         color.push(0);
         ttx.innerHTML = "dist: " + D[j].toString();
         ttx.style.position = "absolute";
+        ttx.style.fontSize = "16px";
         ttx.style.left = (edgesXY[j][0] + 60).toString() + "px";
         ttx.style.top = (edgesXY[j][1] + 12).toString() + "px";
         dts.appendChild(ttx);
@@ -335,7 +338,7 @@
     function dejkstra(v, e) {
       is_review = true;
       if (pathes.length > 0) {
-        step_btn.disabled = false;
+        document.getElementById("step_btn").disabled = false;
         D[v] = 0;
         let x;
         end = e;
