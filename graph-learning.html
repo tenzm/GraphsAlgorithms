@@ -13,7 +13,21 @@
   </head>
   <body id = "body" style = "overflow:hidden;">
     
-    
+    <section class = "clearfix center-container">
+      <div class = "container" style="width: 900px;">
+        <div class = "what-graph float-left">
+      <h1 class="float-left" style = "padding-bottom: 30px; width: 100%;">
+        Немного истории
+      </h1>
+      <p style = "font-size: 22px; padding: 50px 0 0 0; width: 350px;">
+        Издавна среди жителей Кёнигсберга была распространена такая загадка: как пройти по всем городским мостам (через реку Преголя), не проходя ни по одному из них дважды. Многие пытались решить эту задачу как теоретически, так и практически, во время прогулок. Впрочем, доказать или опровергнуть возможность существования такого маршрута никто не мог
+        </p>
+            </div>
+        <div>
+          <img class = "float-right" src="src/Image-Koenigsberg,_Map_by_Merian-Erben_1652.jpg" width="500" style="margin-top:120px;">
+        </div>
+    </div>
+  </section>
     <section class = "clearfix center-container">
         <div class = "container" style="width: 900px;">
           <div class = "what-graph float-left">
@@ -309,7 +323,7 @@
       let prev = document.getElementById("previous");
       let body = document.getElementById("body");
         next.onclick = function(){
-          if(page < 14)
+          if(page < 15)
             page += 1;
           body.style.marginTop = "-"+(page*100).toString()+"vh"
         }
