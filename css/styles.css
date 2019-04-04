@@ -22,7 +22,7 @@ header {
   font-size: 20px;
   color: white;
   padding: 15px 20px 1px 20px;
-  position: relatives;
+  position: relative;
   width: 100%;
 }
 
@@ -45,7 +45,7 @@ body, html {
   /* Для Opera 11.1 - 12.0 */
   background: -moz-linear-gradient(left, #F2C14E, #F78154);
   /* Для Firefox 3.6 - 15 */
-  background: linear-gradient(left, #F2C14E, #F78154);
+  background: linear-gradient(to left, #F2C14E, #F78154);
   /* Стандартный синтаксис */
 }
 

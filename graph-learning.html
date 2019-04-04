@@ -1,276 +1,397 @@
 <!DOCTYPE html>
 <html lang="ru" dir="ltr">
-  <head>
-    <meta charset="utf-8">
-    <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
-    <link rel="stylesheet" type="text/css" href="css/styles.css">
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
-    <title>Graphs</title>
-    <link rel="stylesheet"
-      href="css/xcode.css">
-<script src="js/highlight.pack.js"></script>
-<script>hljs.initHighlightingOnLoad();</script>
-  </head>
-  <body id = "body" style = "overflow:hidden;">
-    
-    
-    <section class = "clearfix center-container">
-        <div class = "container" style="width: 900px;">
-          <div class = "what-graph float-left">
-        <h1 class="text-center float-left" style = "padding-bottom: 30px;">
+
+<head>
+  <meta charset="utf-8">
+  <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
+  <link rel="stylesheet" type="text/css" href="css/styles.css">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css"
+    integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+  <title>Graphs</title>
+  <link rel="stylesheet" href="css/xcode.css">
+  <script src="js/highlight.pack.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script>
+  <script src="js/jquery.js"></script>
+<script src="js/bootstrap.min.js"></script>
+</head>
+
+<body id="body" style="overflow:hidden;">
+
+  <div class="clearfix center-container">
+    <div class="container" style="width: 900px;">
+      <div class="what-graph float-left">
+        <h1 class="float-left" style="padding-bottom: 30px; width: 100%;">
+          Немного истории
+        </h1>
+        <p style="font-size: 22px; padding: 50px 0 0 0; width: 350px;">
+          Издавна среди жителей Кёнигсберга была распространена такая загадка: как пройти по всем городским мостам
+          (через реку Преголя), не проходя ни по одному из них дважды. Многие пытались решить эту задачу как
+          теоретически, так и практически, во время прогулок. Впрочем, доказать или опровергнуть возможность
+          существования такого маршрута никто не мог.
+        </p>
+      </div>
+      <div>
+        <img class="float-right" src="src/Koenigsberg_bridges_map.jpg" width="500" style="margin-top:120px;"
+          alt="Кёнигсберг в XVII—XVIII вв. (карта 1652 года)">
+      </div>
+    </div>
+  </div>
+  <div class="clearfix center-container">
+    <div class="container" style="width: 900px;">
+      <div class="what-graph float-left">
+        <p style="font-size: 22px; width: 500px;">
+          В 1736 году задача о семи мостах заинтересовала выдающегося математика, члена Петербургской академии наук
+          Леонарда Эйлера, о чём он написал в письме итальянскому математику и инженеру Джованни Джакобо Маринони от 13
+          марта 1736 года. В этом письме Эйлер приводит правило, пользуясь которым, легко определить, можно ли пройти по
+          всем мостам, не проходя дважды ни по одному из них. В данном случае ответ был: «нельзя». В письме Карлу
+          Готлибу Элеру от 3 апреля 1736 года Эйлер обосновывает найденное им правило, а позднее на эту тему Эйлер
+          публикует статью в научном журнале Петербургской академии наук «Commentarii Academiae Scientiarum Imperialis
+          Petropolitanae».</p>
+      </div>
+      <div>
+        <img class="float-right" src="src/Leonhard_Euler.jpg" width="300" style="margin-top:90px;" alt="Леонард Эйлер">
+      </div>
+    </div>
+  </div>
+  <div class="clearfix center-container">
+    <div class="container" style="width: 900px;">
+      <div class="what-graph float-left">
+        <p style="font-size: 22px;">
+          На упрощённой схеме города (графе) мостам соответствуют линии (ребра графа), а частям города — точки
+          соединения линий (вершины графа). В ходе рассуждений Эйлер пришёл к следующим выводам:</p>
+
+        <img class="float-right" src="src/Königsberg_graph.svg.png" width="200" style="" alt="Упрощённая схема мостов">
+        <ul style="font-size: 22px;">
+          <li>
+            Число нечётных вершин (вершин, к которым ведёт нечётное число рёбер) графа должно быть чётно. Не может
+            существовать граф, который имел бы нечётное число нечётных вершин.
+          </li>
+          <li>
+            Если все вершины графа чётные, то можно, не отрывая карандаша от бумаги, начертить граф, при этом можно
+            начинать с любой вершины графа и завершить его в той же вершине.
+          </li>
+          <li>
+            Если ровно две вершины графа нечётные, то можно, не отрывая карандаша от бумаги, начертить граф, при этом
+            нужно начинать с одной из нечётных вершин и завершить его в другой нечётной вершине.
+          </li>
+          <li>
+            Граф с более чем двумя нечётными вершинами невозможно начертить одним росчерком.
+          </li>
+        </ul>
+        <p style="font-size: 22px;">
+          Граф кёнигсбергских мостов имел четыре нечётные вершины (то есть все) — следовательно, невозможно пройти по
+          всем мостам, не проходя ни по одному из них дважды. </p>
+      </div>
+
+
+      <div>
+
+      </div>
+    </div>
+  </div>
+  <div class="clearfix center-container">
+    <div class="container" style="width: 900px;">
+      <div class="what-graph float-left">
+        <h1 class="text-center float-left" style="padding-bottom: 30px;">
           Что же такое граф?
         </h1>
-        <p style = "font-size: 22px; padding: 50px 0 0 0;">
-            Граф - множество вершин и ребер.
-          </p>
-          <p style = "font-size: 22px; padding: 0;">
-            Ребро - пара вершин.
-          </p>
-              </div>
-          <div>
-            <img class = "float-right" src="src/graf.png">
-          </div>
+        <p style="font-size: 22px; padding: 50px 0 0 0;">
+          Граф - множество вершин и ребер.
+        </p>
+        <p style="font-size: 22px; padding: 0;">
+          Ребро - пара вершин.
+        </p>
       </div>
-    </section>
-    <section class = "clearfix center-container">
-      <div class = "container" style="width: 900px;">
-          <div class = "what-graph float-left" style="width: 400px; padding-top: 100px;">
-        <h1 class="float-left" style = "padding-bottom: 30px; ">
+      <div>
+        <img class="float-right" src="src/graf.png" alt="Пример графа">
+      </div>
+    </div>
+  </div>
+  <div class="clearfix center-container">
+    <div class="container" style="width: 900px;">
+      <div class="what-graph float-left" style="width: 400px; padding-top: 100px;">
+        <h1 class="float-left" style="padding-bottom: 30px; ">
           Где встречаются графы?
         </h1>
-        <p style = "font-size: 22px; padding: 50px 0 0 0;">
-            Графы встречаются в нашей жизни часто.
-          </p>
-          <p style = "font-size: 22px; padding: 0;">
-           Хорошим примером графа является граф городов и дорог между ними.
-          </p>
-              </div>
-          <div>
-            <img class = "float-right" src="src/graf-road.png">
-          </div>
+        <p style="font-size: 22px; padding: 50px 0 0 0;">
+          Графы встречаются в нашей жизни часто.
+        </p>
+        <p style="font-size: 22px; padding: 0;">
+          Хорошим примером графа является граф городов и дорог между ними.
+        </p>
       </div>
-    </section>
-    <section class = "clearfix center-container">
-      <div class = "container" style="width: 900px;">
-          <div class = "what-graph float-left" style="width: 600px;">
-        <h1 class="float-left" style = "padding-bottom: 30px; display: contents;">
+      <div>
+        <img class="float-right" src="src/graf-road.png" alt="Граф дорог">
+      </div>
+    </div>
+  </div>
+  <div class="clearfix center-container">
+    <div class="container" style="width: 900px;">
+      <div class="what-graph float-left" style="width: 600px;">
+        <h1 class="float-left" style="padding-bottom: 30px; display: contents;">
           Какие бывают графы?
         </h1>
         <div>
-            <p style = "font-size: 22px; padding: 100px 0 0 0; width: 100%;">
-                Графы бывают ориентированные
-            </p>
-          <img class = "float-right" src="src/graf2.png" width="150px" style="margin-top:-90px;">
+          <p style="font-size: 22px; padding: 100px 0 0 0; width: 100%;">
+            Графы бывают ориентированные
+          </p>
+          <img class="float-right" src="src/graf2.png" width="150" style="margin-top:-90px;" alt="Ориентированный граф">
         </div>
         <div>
-            <p style = "font-size: 22px; padding: 100px 0 0 0; width: 100%;">
-                Графы бывают неориентированные
-              </p>
-          <img class = "float-right" src="src/graf3.png" width="150px" style="margin-top:-90px;">
+          <p style="font-size: 22px; padding: 100px 0 0 0; width: 100%;">
+            Графы бывают неориентированные
+          </p>
+          <img class="float-right" src="src/graf3.png" width="150" style="margin-top:-90px;"
+            alt="Неориентированный граф">
         </div>
         <div style="">
-            <p style = "font-size: 22px; padding: 100px 0 0 0; width: 100%;">
-                Графы бывают взвешенные
-              </p>
-          <img class = "float-right" src="src/graf4.png" width="150px" style="margin-top:-90px;">
+          <p style="font-size: 22px; padding: 100px 0 0 0; width: 100%;">
+            Графы бывают взвешенные
+          </p>
+          <img class="float-right" src="src/graf4.png" width="150" style="margin-top:-90px;" alt="Взвешенный граф">
         </div>
         <div style="">
-            <p style = "font-size: 22px; padding: 100px 0 0 0; width: 100%;">
-                Графы бывают невзвешенные
-              </p>
-          <img class = "float-right" src="src/graf3.png" width="150px" style="margin-top:-90px;">
+          <p style="font-size: 22px; padding: 100px 0 0 0; width: 100%;">
+            Графы бывают невзвешенные
+          </p>
+          <img class="float-right" src="src/graf3.png" width="150" style="margin-top:-90px;" alt="Невзвешенный граф">
         </div>
-              </div>
-          
       </div>
-    </section>
-    <section class = "clearfix center-container">
-        <div class = "container" style="width: 900px;">
-            <div class = "what-graph float-left" style="width: 400px; padding-top: 100px;">
-          <h1 class="float-left" style = "padding-bottom: 30px; ">
-            Как хранить граф?
-          </h1>
-          <ul style="font-size:28px;">
-            <li>
-                Матрица смежности
-            </li>
-            <li>
-                Список ребер
-            </li>
-            <li>
-                Списки смежности 
-            </li>
-          </ul>
+
+    </div>
+  </div>
+  <div class="clearfix center-container">
+    <div class="container" style="width: 900px;">
+      <div class="what-graph float-left" style="width: 100%;">
+        
+          <p class="float-left" style="font-size: 24px; width: 100%;">
+              Как хранить граф?
+          </p><br>
+          <div class="accordion" id="accordionExample">
+              <div class="card">
+                <div class="card-header" id="headingOne">
+                  <h2 class="mb-0">
+                    <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                        Матрица смежности
+                    </button>
+                  </h2>
                 </div>
-                <div>
-                  <img class = "float-right" src="src/graf5.png" style="margin-top: 150px;">
+            
+                <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordionExample">
+                  <div class="card-body">
+                      Это таблица N×N,  где в a[i][j] стоит 1, если есть ребро из i в j.Если граф неориентированный, то a[i][j] = a[j][i].
+                      <img src="src/type1.png" alt="Матрица смежности" width="600">
+                  </div>
                 </div>
-        </div>
-      </section>
-      <section class = "clearfix center-container">
-        <div class = "container" style="width: 900px;">
-          <div class = "what-graph float-left">
-        <h1 class="text-center float-left" style = "padding-bottom: 30px;">
+              </div>
+              <div class="card">
+                <div class="card-header" id="headingTwo">
+                  <h2 class="mb-0">
+                    <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                        Список ребер
+                    </button>
+                  </h2>
+                </div>
+                <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionExample">
+                  <div class="card-body">
+                      Это просто список пар вершин.                  
+                    <img src="src/type2.png" alt="Список ребер" width="600">
+                  </div>
+                </div>
+              </div>
+              <div class="card">
+                <div class="card-header" id="headingThree">
+                  <h2 class="mb-0">
+                    <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                        Списки смежности
+                    </button>
+                  </h2>
+                </div>
+                <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordionExample">
+                  <div class="card-body">
+                      Это  сложный,  но  эффективный  (оптимальный)  способ хранить  граф.  Для  каждой  вершины  мы  храним  список вершин, с которыми она соединены (смежные вершины).
+                      
+                    <img src="src/type3.png" alt="Списки смежности" width="700">
+                    </div>
+                </div>
+              </div>
+            </div>
+      </div>
+    </div>
+  </div>
+  <div class="clearfix center-container">
+    <div class="container" style="width: 900px;">
+      <div class="what-graph float-left">
+        <h1 class="text-center float-left" style="padding-bottom: 30px;">
           Алгоритм Дейкстры
         </h1>
         <br>
-        <p style = "font-size: 22px; padding: 50px 0 0 0; margin-top:20px;">
-          Это алгоритм на графах, изобретённый нидерландским учёным Эдсгером Дейкстрой в 1959 году. Находит кратчайшие пути от одной из вершин графа до всех остальных. Алгоритм работает только для графов без рёбер отрицательного веса.
-          </p>
-              </div>
+        <p style="font-size: 22px; padding: 50px 0 0 0; margin-top:20px;">
+          Это алгоритм на графах, изобретённый нидерландским учёным Эдсгером Дейкстрой в 1959 году. Находит кратчайшие
+          пути от одной из вершин графа до всех остальных. Алгоритм работает только для графов без рёбер отрицательного
+          веса.
+        </p>
       </div>
-    </section>
-    <section class = "clearfix center-container">
-        <div class = "container" style="width: 900px;">
-          <div class = "what-graph float-left">
-        <h1 class="text-center float-left" style = "padding-bottom: 30px;">
+    </div>
+  </div>
+  <div class="clearfix center-container">
+    <div class="container" style="width: 900px;">
+      <div class="what-graph float-left">
+        <h1 class="text-center float-left" style="padding-bottom: 30px;">
           Как мы будем хранить граф?
         </h1>
         <br>
-        <p style = "font-size: 22px; padding: 50px 0 0 0; margin-top:20px;">
-          Поскольку  каждое  ребро  содержит  не  только информацию  о  том,  куда  ребро  ведёт,  но  ещё  и  его длину,  мы  воспользуемся  структурой  для  хранения ребра.        </p>
-          <pre><code class="C++" style="background-color: transparent; font-size: 18px;">struct Edge {
+        <p style="font-size: 22px; padding: 50px 0 0 0; margin-top:20px;">
+          Поскольку каждое ребро содержит не только информацию о том, куда ребро ведёт, но ещё и его длину, мы
+          воспользуемся структурой для хранения ребра. </p>
+        <pre><code class="C++" style="background-color: transparent; font-size: 18px;">struct Edge {
             int to;   // Куда ведёт ребро
             int len;  // Длина ребра
           };</code></pre>
-              </div>
       </div>
-    </section>
-    <section class = "clearfix center-container">
-        <div class = "container" style="width: 900px;">
-          <div class = "what-graph float-left">
-        <p style = "font-size: 22px; padding: 50px 0 0 0; margin-top:20px;">
-            Тогда  наш  массив  G,  в  котором  хранится  будет объявляться следующим образом:        </p>
-          <pre><code class="C++" style="background-color: transparent; font-size: 18px;">vector&#8249;Edge&#8250; G[MAXV];
+    </div>
+  </div>
+  <div class="clearfix center-container">
+    <div class="container" style="width: 900px;">
+      <div class="what-graph float-left">
+        <p style="font-size: 22px; padding: 50px 0 0 0; margin-top:20px;">
+          Тогда наш массив G, в котором хранится будет объявляться следующим образом: </p>
+        <pre><code class="C++" style="background-color: transparent; font-size: 18px;">vector&#8249;Edge&#8250; G[MAXV];
           </code></pre>
-          <p style = "font-size: 22px; padding: 50px 0 0 0; margin-top:20px;">
-              А  если  нам  потребуется  добавить  новое  ребро  из вершины a в вершину b длины x, то это можно сделать одной командой:        </p>
-            <pre><code class="C++" style="background-color: transparent; font-size: 18px;">G[a].push_back({b, x});
+        <p style="font-size: 22px; padding: 50px 0 0 0; margin-top:20px;">
+          А если нам потребуется добавить новое ребро из вершины a в вершину b длины x, то это можно сделать одной
+          командой: </p>
+        <pre><code class="C++" style="background-color: transparent; font-size: 18px;">G[a].push_back({b, x});
             </code></pre>
-              </div>
       </div>
-    </section>
-    <section class = "clearfix center-container">
-        <div class = "container" style="width: 900px;">
-          <div class = "what-graph float-left">
-        <p style = "font-size: 22px; padding: 50px 0 0 0; margin-top:20px;">
-            Создадим  массив  D,  который  в  ячейке  D[i]  будет хранить   оптимальное   расстояние   от   начальной вершины v до вершины i.        </p>
-            <p style = "font-size: 22px; padding: 50px 0 0 0; margin-top:20px;">
-                Изначально    это    расстояние    будет    равно бесконечности,  а  затем  мы  будем  его  постепенно уточнять.        </p>
-            <pre><code class="C++" style="background-color: transparent; font-size: 18px;">
+    </div>
+  </div>
+  <div class="clearfix center-container">
+    <div class="container" style="width: 900px;">
+      <div class="what-graph float-left">
+        <p style="font-size: 22px; padding: 50px 0 0 0; margin-top:20px;">
+          Создадим массив D, который в ячейке D[i] будет хранить оптимальное расстояние от начальной вершины v до
+          вершины i. </p>
+        <p style="font-size: 22px; padding: 50px 0 0 0; margin-top:20px;">
+          Изначально это расстояние будет равно бесконечности, а затем мы будем его постепенно уточнять. </p>
+        <pre><code class="C++" style="background-color: transparent; font-size: 18px;">
         int D[n];
         void init(int v) {
-          for (int i = 0; i < n; ++i)
+          for (int i = 0; i &lt; n; ++i)
             D[i] = inf;
           D[v] = 0; // расстояние от v до v равно 0
         }
             </code></pre>
-              </div>
       </div>
-    </section>
-    <section class = "clearfix center-container">
-        <div class = "container" style="width: 900px;">
-          <div class = "what-graph float-left">
-        <p style = "font-size: 22px; padding: 50px 0 0 0; margin-top:20px;">
-            Поскольку в языке C++ не существует целочисленного значения  +∞,  то  мы  объявим  что-то  достаточно близкое :)        </p>
-            <pre><code class="C++" style="background-color: transparent; font-size: 18px;">
+    </div>
+  </div>
+  <div class="clearfix center-container">
+    <div class="container" style="width: 900px;">
+      <div class="what-graph float-left">
+        <p style="font-size: 22px; padding: 50px 0 0 0; margin-top:20px;">
+          Поскольку в языке C++ не существует целочисленного значения +∞, то мы объявим что-то достаточно близкое :)
+        </p>
+        <pre><code class="C++" style="background-color: transparent; font-size: 18px;">
   const int inf = 1000000000; // inf — от слова infinity (бесконечность)
             </code></pre>
-              </div>
       </div>
-    </section>
-    <section class = "clearfix center-container">
-        <div class = "container" style="width: 900px;">
-          <div class = "what-graph float-left">
-        <p style = "font-size: 22px; padding: 50px 0 0 0; margin-top:20px;">
-            Кроме  того  будем  помечать  вершины,  для  которых расстояние уже известно черным цветом. Для этого мы заведем  массив  color,  который  будет  хранить  в  себе цвета вершин:
+    </div>
+  </div>
+  <div class="clearfix center-container">
+    <div class="container" style="width: 900px;">
+      <div class="what-graph float-left">
+        <p style="font-size: 22px; padding: 50px 0 0 0; margin-top:20px;">
+          Кроме того будем помечать вершины, для которых расстояние уже известно черным цветом. Для этого мы заведем
+          массив color, который будет хранить в себе цвета вершин:
         </p>
-            <p style = "font-size: 22px; padding: 50px 0 0 0; margin-top:20px;">
-              ●color[i]  =  0,  если  i  имеет  белый  цвет  и  точное расстояние до нее ещё не найдено    
-            </p>
-            <p style = "font-size: 22px; padding: 50px 0 0 0; margin-top:20px;">
-                ●color[i] = 1, i имеет черный цвет и расстояние до этой вершины найдено и меняться не будет  
-              </p>
-              <p style = "font-size: 22px; padding: 50px 0 0 0; margin-top:20px;">
-                  Дополним нашу функцию init.
-                </p>
-            <pre><code class="C++" style="background-color: transparent; font-size: 18px;">
+        <p style="font-size: 22px; padding: 50px 0 0 0; margin-top:20px;">
+          ●color[i] = 0, если i имеет белый цвет и точное расстояние до нее ещё не найдено
+        </p>
+        <p style="font-size: 22px; padding: 50px 0 0 0; margin-top:20px;">
+          ●color[i] = 1, i имеет черный цвет и расстояние до этой вершины найдено и меняться не будет
+        </p>
+        <p style="font-size: 22px; padding: 50px 0 0 0; margin-top:20px;">
+          Дополним нашу функцию init.
+        </p>
+        <pre><code class="C++" style="background-color: transparent; font-size: 18px;">
         int D[n];
         int color[n];
         void init(int v) {
-          for (int i = 0; i < n; ++i) {
+          for (int i = 0; i &lt; n; ++i) {
             D[i] = inf;
             color[i] = 0; // сначала все вершины белые
           }
           D[v] = 0; // расстояние от v до v равно 0
         }
             </code></pre>
-              </div>
       </div>
-    </section>
-    <section class = "clearfix center-container">
-        <div class = "container" style="width: 900px;">
-          <div class = "what-graph float-left">
-        <h1 class="text-center float-left" style = "padding-bottom: 30px;">
-            Операция релаксации
+    </div>
+  </div>
+  <div class="clearfix center-container">
+    <div class="container" style="width: 900px;">
+      <div class="what-graph float-left">
+        <h1 class="text-center float-left" style="padding-bottom: 30px;">
+          Операция релаксации
         </h1>
         <br>
-        <p style = "font-size: 22px; padding: 50px 0 0 0; margin-top:20px;">
-            Релаксация  в  алгоритме  Дейкстры  —  это  обновление кратчайших   путей,   проходящих   из   некоторой вершины x.        </p>
-          <p style = "font-size: 22px; padding: 50px 0 0 0; margin-top:20px;">
-              Пусть  кратчайшее  расстояние  от v  до x  уже  известно, тогда мы можем взять все соседние с ней вершины и обновить  расстояние  до  них  на,  возможно,  более оптимальное.</p>
-              </div>
+        <p style="font-size: 22px; padding: 50px 0 0 0; margin-top:20px;">
+          Релаксация в алгоритме Дейкстры — это обновление кратчайших путей, проходящих из некоторой вершины x. </p>
+        <p style="font-size: 22px; padding: 50px 0 0 0; margin-top:20px;">
+          Пусть кратчайшее расстояние от v до x уже известно, тогда мы можем взять все соседние с ней вершины и обновить
+          расстояние до них на, возможно, более оптимальное.</p>
       </div>
-    </section>
-    <section class = "clearfix center-container">
-        <div class = "container" style="width: 900px;">
-          <div class = "what-graph float-left">
-        <p style = "font-size: 22px; padding: 50px 0 0 0; margin-top:20px;">
-            Напишем  функцию,  которая  обновляет расстояние до всех белых вершин, смежных с x.
+    </div>
+  </div>
+  <div class="clearfix center-container">
+    <div class="container" style="width: 900px;">
+      <div class="what-graph float-left">
+        <p style="font-size: 22px; padding: 50px 0 0 0; margin-top:20px;">
+          Напишем функцию, которая обновляет расстояние до всех белых вершин, смежных с x.
         </p>
-            <pre><code class="C++" style="background-color: transparent; font-size: 18px;">
+        <pre><code class="C++" style="background-color: transparent; font-size: 18px;">
       void relax(int x) {
         for (Edge &e : G[x])
           if (D[e.to] > D[x] + e.len)
             D[e.to] = D[x] + e.len;
       }
             </code></pre>
-              </div>
       </div>
-    </section>
-    <section class = "clearfix center-container">
-        <div class = "container" style="width: 900px;">
-          <div class = "what-graph float-left">
-        <p style = "font-size: 22px; padding: 50px 0 0 0; margin-top:20px;">
-            Используя  операцию  релаксации  запишем  алгоритм Дейкстры:
+    </div>
+  </div>
+  <div class="clearfix center-container">
+    <div class="container" style="width: 900px;">
+      <div class="what-graph float-left">
+        <p style="font-size: 22px; padding: 50px 0 0 0; margin-top:20px;">
+          Используя операцию релаксации запишем алгоритм Дейкстры:
         </p>
-            <p style = "font-size: 22px; padding: 50px 0 0 0; margin-top:20px;">
-                1) Находим среди всех вершин белую вершину x с минимальным D[x];    
-            </p>
-            <p style = "font-size: 22px; padding: 50px 0 0 0; margin-top:10px;">
-                2) Если белых вершин нет, то очевидно алгоритм заканчивает свою работу, так как все расстояния найдены;
-            </p>
-            <p style = "font-size: 22px; padding: 50px 0 0 0; margin-top:10px;">
-                3) Релаксируем вершину x и красим ее в черный цвет;
-            </p>
-            <p style = "font-size: 22px; padding: 50px 0 0 0; margin-top:10px;">
-                4) Переходим к шагу 2.
-            </p>
-              </div>
+        <p style="font-size: 22px; padding: 50px 0 0 0; margin-top:20px;">
+          1) Находим среди всех вершин белую вершину x с минимальным D[x];
+        </p>
+        <p style="font-size: 22px; padding: 50px 0 0 0; margin-top:10px;">
+          2) Если белых вершин нет, то очевидно алгоритм заканчивает свою работу, так как все расстояния найдены;
+        </p>
+        <p style="font-size: 22px; padding: 50px 0 0 0; margin-top:10px;">
+          3) Релаксируем вершину x и красим ее в черный цвет;
+        </p>
+        <p style="font-size: 22px; padding: 50px 0 0 0; margin-top:10px;">
+          4) Переходим к шагу 2.
+        </p>
       </div>
-    </section>
-    <section class = "clearfix center-container">
-        <div class = "container" style="width: 900px;">
-          <div class = "what-graph float-left">
-        <p style = "font-size: 22px; padding: 50px 0 0 0; margin-top:20px;">
-            Напишем  функцию,  которая  будет  находить  белую вершину  x  с  минимальным  D[x].  Или  возвращать  -1, если белых вершин нет.
+    </div>
+  </div>
+  <div class="clearfix center-container">
+    <div class="container" style="width: 900px;">
+      <div class="what-graph float-left">
+        <p style="font-size: 22px; padding: 50px 0 0 0; margin-top:20px;">
+          Напишем функцию, которая будет находить белую вершину x с минимальным D[x]. Или возвращать -1, если белых
+          вершин нет.
         </p>
-            <pre><code class="C++" style="background-color: transparent; font-size: 18px;">
+        <pre><code class="C++" style="background-color: transparent; font-size: 18px;">
       int findMin() {
         int x = -1;
         int dist = inf;
-        for (int i = 0; i < n; ++i) {
-          if (D[i] < dist && color[i] == 0) {
+        for (int i = 0; i &lt; n; ++i) {
+          if (D[i] &lt; dist && color[i] == 0) {
             x = i;
             dist = D[i]; 
           }
@@ -278,16 +399,16 @@
         return x;
       }
             </code></pre>
-              </div>
       </div>
-    </section>
-    <section class = "clearfix center-container">
-        <div class = "container" style="width: 900px;">
-          <div class = "what-graph float-left">
-        <p style = "font-size: 22px; padding: 50px 0 0 0; margin-top:20px;">
-            Тогда  сам  алгоритм  Дейкстры  будет  записываться очень просто.
+    </div>
+  </div>
+  <div class="clearfix center-container">
+    <div class="container" style="width: 900px;">
+      <div class="what-graph float-left">
+        <p style="font-size: 22px; padding: 50px 0 0 0; margin-top:20px;">
+          Тогда сам алгоритм Дейкстры будет записываться очень просто.
         </p>
-            <pre><code class="C++" style="background-color: transparent; font-size: 18px;">
+        <pre><code class="C++" style="background-color: transparent; font-size: 18px;">
       void Dijkstra(int v) {
         init(v);
         int x;
@@ -297,28 +418,32 @@
         }
       }
             </code></pre>
-      <a href="graph-demonstration.html" style="font-size: 22px;">Демонстрация работы алгоритма</a>
-              </div>
+        <a href="graph-demonstration.html" style="font-size: 22px;">Демонстрация работы алгоритма</a>
       </div>
-    </section>
-    <i class="fas fa-chevron-circle-right" id = "next"></i>
-    <i class="fas fa-chevron-circle-right" id = "previous"></i>
-    <script>
-      let page = 0;
-      let next = document.getElementById("next");
-      let prev = document.getElementById("previous");
-      let body = document.getElementById("body");
-        next.onclick = function(){
-          if(page < 14)
-            page += 1;
-          body.style.marginTop = "-"+(page*100).toString()+"vh"
-        }
-        
-        prev.onclick = function(){
-          if(page > -1)
-            page -= 1;
-          body.style.marginTop = "-"+(page*100).toString()+"vh"
-        }
-    </script>
-  </body>
+    </div>
+  </div>
+  <i class="fas fa-chevron-circle-right" id="next"></i>
+  <i class="fas fa-chevron-circle-right" id="previous"></i>
+  <script src="js/bootstrap.min.js"></script>
+  <script src="js/jquery.js"></script>
+  <script src="js/popper.min.js"></script>
+  <script>
+    let page = 0;
+    let next = document.getElementById("next");
+    let prev = document.getElementById("previous");
+    let body = document.getElementById("body");
+    next.onclick = function () {
+      if (page < 17)
+        page += 1;
+      body.style.marginTop = "-" + (page * 100).toString() + "vh"
+    }
+
+    prev.onclick = function () {
+      if (page > -1)
+        page -= 1;
+      body.style.marginTop = "-" + (page * 100).toString() + "vh"
+    }
+  </script>
+</body>
+
 </html>
