@@ -11,6 +11,8 @@
   <link rel="stylesheet" href="css/xcode.css">
   <script src="js/highlight.pack.js"></script>
   <script>hljs.initHighlightingOnLoad();</script>
+  <script src="js/jquery.js"></script>
+<script src="js/bootstrap.min.js"></script>
 </head>
 
 <body id="body" style="overflow:hidden;">
@@ -160,24 +162,60 @@
   </div>
   <div class="clearfix center-container">
     <div class="container" style="width: 900px;">
-      <div class="what-graph float-left" style="width: 400px; padding-top: 100px;">
-        <h1 class="float-left" style="padding-bottom: 30px; ">
-          Как хранить граф?
-        </h1>
-        <ul style="font-size:28px;">
-          <li>
-            Матрица смежности
-          </li>
-          <li>
-            Список ребер
-          </li>
-          <li>
-            Списки смежности
-          </li>
-        </ul>
-      </div>
-      <div>
-        <img class="float-right" src="src/graf5.png" style="margin-top: 150px;" alt="Граф">
+      <div class="what-graph float-left" style="width: 100%;">
+        
+          <p class="float-left" style="font-size: 24px; width: 100%;">
+              Как хранить граф?
+          </p><br>
+          <div class="accordion" id="accordionExample">
+              <div class="card">
+                <div class="card-header" id="headingOne">
+                  <h2 class="mb-0">
+                    <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                        Матрица смежности
+                    </button>
+                  </h2>
+                </div>
+            
+                <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordionExample">
+                  <div class="card-body">
+                      Это таблица N×N,  где в a[i][j] стоит 1, если есть ребро из i в j.Если граф неориентированный, то a[i][j] = a[j][i].
+                      <img src="src/type1.png" alt="Матрица смежности" width="600">
+                  </div>
+                </div>
+              </div>
+              <div class="card">
+                <div class="card-header" id="headingTwo">
+                  <h2 class="mb-0">
+                    <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                        Список ребер
+                    </button>
+                  </h2>
+                </div>
+                <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionExample">
+                  <div class="card-body">
+                      Это просто список пар вершин.                  
+                    <img src="src/type2.png" alt="Список ребер" width="600">
+                  </div>
+                </div>
+              </div>
+              <div class="card">
+                <div class="card-header" id="headingThree">
+                  <h2 class="mb-0">
+                    <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                        Списки смежности
+                    </button>
+                  </h2>
+                </div>
+                <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordionExample">
+                  <div class="card-body">
+                      Это  сложный,  но  эффективный  (оптимальный)  способ хранить  граф.  Для  каждой  вершины  мы  храним  список вершин, с которыми она соединены (смежные вершины).
+                      
+                    <img src="src/type3.png" alt="Списки смежности" width="700">
+                    </div>
+                </div>
+              </div>
+            </div>
       </div>
     </div>
   </div>
@@ -386,6 +424,9 @@
   </div>
   <i class="fas fa-chevron-circle-right" id="next"></i>
   <i class="fas fa-chevron-circle-right" id="previous"></i>
+  <script src="js/bootstrap.min.js"></script>
+  <script src="js/jquery.js"></script>
+  <script src="js/popper.min.js"></script>
   <script>
     let page = 0;
     let next = document.getElementById("next");
