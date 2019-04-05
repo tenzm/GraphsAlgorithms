@@ -328,8 +328,13 @@
         color[x] = 1;
         relax(x);
       } else {
-        res.innerHTML = "Результат: " + D[end];
-        lightWay(start, end);
+        if(color[end]){
+          res.innerHTML = "Результат: " + D[end];
+          lightWay(start, end);
+        }
+        else{
+          res.innerHTML = "Результат: пути к данной вершине не существует";
+        }
       }
       update_dist();
     }
@@ -363,6 +368,7 @@
     }
 
     function lightWay(from, to) {
+      console.log("sdasd");
       now = to;
       while (now != from) {
         for (let i = 0; i < pathes.length; i++) {
@@ -400,6 +406,7 @@
       let x = -1;
       let dist = 10000000;
       for (let i = 0; i < cntEdges; ++i) {
+        
         if (D[i] < dist && color[i] == 0) {
           x = i;
           dist = D[i];
