@@ -70,6 +70,7 @@
     let k = 1;
     let l = 1;
     let is_review = false;
+    let visited_color = "#000";
 
     let rectIsMove = false;
     let edges = document.getElementsByClassName("edge");
@@ -311,7 +312,7 @@
         ttx.style.top = (edgesXY[j][1] + 12).toString() + "px";
         dts.appendChild(ttx);
         if (color[j] == 1) {
-          edges[j].style.backgroundColor = "#ffc107";
+          edges[j].style.backgroundColor = visited_color;
         }
       }
       cx.closePath();
@@ -328,11 +329,11 @@
         color[x] = 1;
         relax(x);
       } else {
-        if(color[end]){
+        if (color[end]) {
           res.innerHTML = "Результат: " + D[end];
           lightWay(start, end);
         }
-        else{
+        else {
           res.innerHTML = "Результат: пути к данной вершине не существует";
         }
       }
@@ -347,7 +348,7 @@
         let x;
         end = e;
         start = v;
-        edges[v].style.backgroundColor = "#ffc107";
+        edges[v].style.backgroundColor = visited_color;
         update_dist();
       }
     }
@@ -358,7 +359,7 @@
         if (pathes[i][0] == x) {
           tarr.push([pathes[i][1], parseInt(pathes[i][2])]);
         }
-        col = "#B22222";
+        col = "#ffc107";
       }
       for (let i = 0; i < tarr.length; i++) {
         if (D[tarr[i][0]] > D[x] + tarr[i][1])
@@ -368,7 +369,6 @@
     }
 
     function lightWay(from, to) {
-      console.log("sdasd");
       now = to;
       while (now != from) {
         for (let i = 0; i < pathes.length; i++) {
@@ -406,7 +406,7 @@
       let x = -1;
       let dist = 10000000;
       for (let i = 0; i < cntEdges; ++i) {
-        
+
         if (D[i] < dist && color[i] == 0) {
           x = i;
           dist = D[i];
