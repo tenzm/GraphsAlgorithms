@@ -1,17 +1,3 @@
-@font-face {
-  font-family: HelveticaNeue;
-  /* Гарнитура шрифта */
-  src: url("fonts/helveticaneue.ttf");
-  /* Путь к файлу со шрифтом */
-}
-
-@font-face {
-  font-family: HelveticaNeueLight;
-  /* Гарнитура шрифта */
-  src: url("fonts/helveticaneuelight.ttf");
-  /* Путь к файлу со шрифтом */
-}
-
 ::placeholder {
   color: #FFF;
 }
